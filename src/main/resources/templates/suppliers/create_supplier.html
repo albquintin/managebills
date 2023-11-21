@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facturas</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br /><br />
+<div class="container">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        Nuevo proveedor
+      </p>
+    </header>
+    <div class="card-content">
+      <form role="form" method="post" th:action="@{/suppliers/suppliers}" th:object="${supplier}">
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Nombre del Proveedor</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el nombre del proveedor"
+                        id="name"
+                        name="name"
+                        th:field="*{name}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">CIF</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el cif del proveedor"
+                        id="cif"
+                        name="cif"
+                        th:field="*{cif}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div>
+          <button type="submit" class="button is-primary">Crear</button>
+          <a th:href="@{/suppliers/suppliers}"
+             class="button is-link">
+            Volver
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

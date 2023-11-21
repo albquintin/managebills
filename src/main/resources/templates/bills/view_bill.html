@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Facturas</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title is-centered"
+               th:text="'Factura: ' + ${bill.orderNumber}"
+            ></p>
+        </header>
+        <div class="card-content">
+            <div class="columns">
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Número de orden</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.orderNumber}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Fecha de la factura</p>
+                        </div>
+                        <div class="message-body" th:text="${#temporals.format(bill.billDate, 'dd MMM yyyy')}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Proveedor</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.supplierName}"></div>
+                    </article>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Número de la factura</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.billNumber}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Total Factura</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.totalPrice}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Tipo de Pago</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.billType}"></div>
+                    </article>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Base 21% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva21base}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Base 10% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva10base}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Base 5% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva5base}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Base 4% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva4base}"></div>
+                    </article>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Cantidad 21% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva21amount}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Cantidad 10% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva10amount}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Cantidad 5% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva5amount}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Cantidad 4% IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva4amount}"></div>
+                    </article>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Cantidad Exenta</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.iva0}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Suma total IVA</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.totalIva}"></div>
+                    </article>
+                </div>
+                <div class="column">
+                    <article class="message">
+                        <div class="message-header">
+                            <p>Retención</p>
+                        </div>
+                        <div class="message-body" th:text="${bill.retention}"></div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

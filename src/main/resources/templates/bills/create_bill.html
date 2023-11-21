@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facturas</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br /><br />
+<div class="container">
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">
+        Nueva factura
+      </p>
+    </header>
+    <div class="card-content">
+      <form role="form" method="post" th:action="@{/bills/bills}" th:object="${bill}">
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Número de orden</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step="1"
+                        placeholder="Inserte el número de orden de la factura"
+                        id="orderNumber"
+                        name="orderNumber"
+                        th:field="*{orderNumber}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Fecha de la factura</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="date"
+                        id="billDate"
+                        name="billDate"
+                        th:field="*{billDate}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Proveedor</label>
+              <div class="select">
+                <select th:field="*{supplierId}">
+                  <option th:each="supplier: ${suppliers}"
+                          th:value="${supplier.id}"
+                          th:text="${supplier.name}"
+                  ></option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Número de la factura</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el número de la factura"
+                        id="billNumber"
+                        name="billNumber"
+                        th:field="*{billNumber}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Total Factura</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="totalPrice"
+                        name="totalPrice"
+                        th:field="*{totalPrice}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Tipo</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el tipo de pago"
+                        id="billType"
+                        name="billType"
+                        th:field="*{billType}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">IVA 21%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva21base"
+                        name="iva21base"
+                        th:field="*{iva21base}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">IVA 10%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva10base"
+                        name="iva10base"
+                        th:field="*{iva10base}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">IVA 5%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva5base"
+                        name="iva5base"
+                        th:field="*{iva5base}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">IVA 4%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva4base"
+                        name="iva4base"
+                        th:field="*{iva4base}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label">Exento IVA</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva0"
+                        name="iva0"
+                        th:field="*{iva0}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Retención</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="retention"
+                        name="retention"
+                        th:field="*{retention}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="button is-primary">Crear</button>
+          <a th:href="@{/bills/bills}"
+             class="button is-link">
+            Volver
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+    document.getElementById("totalPrice").defaultValue = "0";
+    document.getElementById("iva21base").defaultValue = "0";
+    document.getElementById("iva10base").defaultValue = "0";
+    document.getElementById("iva5base").defaultValue = "0";
+    document.getElementById("iva4base").defaultValue = "0";
+    document.getElementById("iva0").defaultValue = "0";
+    document.getElementById("retention").defaultValue = "0";
+</script>
+</body>
+</html>
