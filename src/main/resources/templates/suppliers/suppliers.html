@@ -19,9 +19,10 @@
         <thead>
         <tr>
             <th style="width:10%">#</th>
-            <th style="width:40%">Proveedor</th>
+            <th style="width:30%">Proveedor</th>
             <th style="width:30%">CIF</th>
-            <th style="width:20%">Acciones</th>
+            <th style="width:20%">Cantidad acumulada</th>
+            <th style="width:10%">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -29,9 +30,10 @@
             <td th:text="${supplierStat.count}"></td>
             <td th:text="${supplier.name}"></td>
             <td th:text="${supplier.cif}"></td>
+            <td th:text="${supplier.accumulatedQuantity!=null?supplier.accumulatedQuantity:0.0} + '€'"></td>
             <td>
                 <a th:href="@{/suppliers/suppliers/edit/{supplierId}(supplierId=${supplier.id})}"
-                   class="button is-small is-link">
+                   class="button is-small blue-machine">
                     Editar
                 </a>
             </td>

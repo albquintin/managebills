@@ -1,7 +1,29 @@
-.apricot {
-    background-color:#f8c4a8!important;
+.light-grey{
+    background-color:#f0f0f0!important;
+}
+.friendly-white{
+    background-color:#fbfbfb!important;
+}
+.green-soil{
+    background-color:#769368!important;
+    color:white!important;
+}
+.blue-machine{
+    background-color:#5D67AF!important;
+    color:white!important;
+}
+.red-blood{
+    background-color:#C1474E!important;
+    color:white!important;
+}
+.hard-grey{
+    background-color:#B1ADAD!important;
+    color:white!important;
 }
 html, body{
     background-color: #E3E6E6;
     height: 130%;
+}
+.is-small{
+    border-radius: 5px!important;
 }

@@ -10,4 +10,6 @@ public interface SupplierService {
     SupplierDto findSupplierById(Long supplierId);
     void createSupplier(SupplierDto supplierDto);
     void updateSupplier(SupplierDto supplierDto);
+    List<SupplierDto> findAllSuppliersWithAccumulatedQuantity();
+    List<SupplierDto> findAllOrdered();
 }

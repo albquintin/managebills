@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -27,30 +28,30 @@ public class Bill {
     private Supplier supplier;
     @Column(name = "bill_number")
     private String billNumber;
-    @Column(name = "total_price")
-    private Float totalPrice;
+    @Column(name = "total_price", nullable = false)
+    private BigDecimal totalPrice;
     @Column(name = "bill_type")
     private String billType;
-    @Column(name = "iva_21_base")
-    private Float iva21base;
+    @Column(name = "iva_21_base", nullable = false)
+    private BigDecimal iva21base;
     @Column(name = "iva_21_amount")
-    private Float iva21amount;
-    @Column(name = "iva_10_base")
-    private Float iva10base;
+    private BigDecimal iva21amount;
+    @Column(name = "iva_10_base", nullable = false)
+    private BigDecimal iva10base;
     @Column(name = "iva_10_amount")
-    private Float iva10amount;
-    @Column(name = "iva_5_base")
-    private Float iva5base;
+    private BigDecimal iva10amount;
+    @Column(name = "iva_5_base", nullable = false)
+    private BigDecimal iva5base;
     @Column(name = "iva_5_amount")
-    private Float iva5amount;
-    @Column(name = "iva_4_base")
-    private Float iva4base;
+    private BigDecimal iva5amount;
+    @Column(name = "iva_4_base", nullable = false)
+    private BigDecimal iva4base;
     @Column(name = "iva_4_amount")
-    private Float iva4amount;
-    @Column(name = "iva_0_base")
-    private Float iva0;
+    private BigDecimal iva4amount;
+    @Column(name = "iva_0_base", nullable = false)
+    private BigDecimal iva0;
     @Column(name = "total_iva")
-    private Float totalIva;
-    @Column(name = "retention")
-    private Float retention;
+    private BigDecimal totalIva;
+    @Column(name = "retention", nullable = false)
+    private BigDecimal retention;
 }

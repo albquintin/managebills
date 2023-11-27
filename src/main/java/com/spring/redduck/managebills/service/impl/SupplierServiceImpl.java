@@ -40,4 +40,16 @@ public class SupplierServiceImpl implements SupplierService {
         Supplier supplier = SupplierMapper.mapToSupplier(supplierDto);
         supplierRepository.save(supplier);
     }
+
+    @Override
+    public List<SupplierDto> findAllSuppliersWithAccumulatedQuantity() {
+        List<Supplier> suppliers = supplierRepository.findAllSuppliersWithAccumulatedQuantity();
+        return suppliers.stream().map((supplier) -> SupplierMapper.mapToSupplierDto(supplier)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SupplierDto> findAllOrdered() {
+        List<Supplier> suppliers = supplierRepository.findAllOrdered();
+        return suppliers.stream().map((supplier) -> SupplierMapper.mapToSupplierDto(supplier)).collect(Collectors.toList());
+    }
 }

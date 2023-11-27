@@ -23,7 +23,7 @@
       <th style="width:10%">Fecha</th>
       <th style="width:10%">Proveedor</th>
       <th style="width:10%">Número Factura</th>
-      <th style="width:10%">Precio total</th>
+      <th style="width:10%">Total Factura</th>
       <th style="width:10%">Tipo pago</th>
       <th style="width:10%">Total IVA</th>
       <th style="width:10%">Retención</th>
@@ -37,16 +37,16 @@
       <td th:text="${#temporals.format(bill.billDate, 'dd MMM yyyy')}"></td>
       <td th:text="${bill.supplierName}"></td>
       <td th:text="${bill.billNumber}"></td>
-      <td th:text="${bill.totalPrice}"></td>
+      <td th:text="${bill.totalPrice} + '€'"></td>
       <td th:text="${bill.billType}"></td>
-      <td th:text="${bill.totalIva}"></td>
-      <td th:text="${bill.retention}"></td>
+      <td th:text="${bill.totalIva} + '€'"></td>
+      <td th:text="${bill.retention} + '€'"></td>
       <td>
         <a th:href="@{/bills/bills/edit/{billId}(billId=${bill.id})}"
-            class="button is-small is-link">
+            class="button is-small blue-machine">
            Editar
         </a>
-        <a class="button is-small is-danger open-modal">
+        <a class="button is-small red-blood open-modal">
            Borrar
         </a>
         <a th:href="@{/bills/bills/view/{billId}(billId=${bill.id})}"
@@ -69,8 +69,8 @@
     <section class="modal-card-body">
       <p id="modal-content"></p>
       <br/>
-      <a class="button is-danger delete-button">Borrar</a>
-      <button class="button is-link close-modal">Volver</button>
+      <a class="button red-blood delete-button">Borrar</a>
+      <button class="button blue-machine close-modal">Volver</button>
     </section>
   </div>
 </div>

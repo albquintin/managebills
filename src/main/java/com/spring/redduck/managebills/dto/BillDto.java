@@ -1,10 +1,10 @@
 package com.spring.redduck.managebills.dto;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -20,17 +20,36 @@ public class BillDto {
     private Long supplierId;
     private String supplierName;
     private String billNumber;
-    private Float totalPrice;
+    @NotNull(message = "El campo Total Factura no puede estar vacío")
+    private BigDecimal totalPrice;
     private String billType;
-    private Float iva21base;
-    private Float iva21amount;
-    private Float iva10base;
-    private Float iva10amount;
-    private Float iva5base;
-    private Float iva5amount;
-    private Float iva4base;
-    private Float iva4amount;
-    private Float iva0;
-    private Float totalIva;
-    private Float retention;
+    @NotNull(message = "El campo IVA 21% no puede estar vacío")
+    private BigDecimal iva21base;
+    private BigDecimal iva21amount;
+    @NotNull(message = "El campo IVA 10% no puede estar vacío")
+    private BigDecimal iva10base;
+    private BigDecimal iva10amount;
+    @NotNull(message = "El campo IVA 5% no puede estar vacío")
+    private BigDecimal iva5base;
+    private BigDecimal iva5amount;
+    @NotNull(message = "El campo IVA 4% no puede estar vacío")
+    private BigDecimal iva4base;
+    private BigDecimal iva4amount;
+    @NotNull(message = "El campo Exento IVA no puede estar vacío")
+    private BigDecimal iva0;
+    private BigDecimal totalIva;
+    @NotNull(message = "El campo Retención no puede estar vacío")
+    private BigDecimal retention;
+
+    public BillDto(BigDecimal totalPrice, BigDecimal iva21base, BigDecimal iva10base, BigDecimal iva5base, BigDecimal iva4base, BigDecimal iva0, BigDecimal totalIva, BigDecimal retention) {
+        this.totalPrice = totalPrice;
+        this.iva21base = iva21base;
+        this.iva10base = iva10base;
+        this.iva5base = iva5base;
+        this.iva4base = iva4base;
+        this.iva0 = iva0;
+        this.totalIva = totalIva;
+        this.retention = retention;
+    }
+
 }

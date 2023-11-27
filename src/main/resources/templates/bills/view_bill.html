@@ -14,16 +14,16 @@
 <br/><br/>
 <div class="container">
     <div class="card">
-        <header class="card-header">
+        <header class="card-header friendly-white">
             <p class="card-header-title is-centered"
                th:text="'Factura: ' + ${bill.orderNumber}"
             ></p>
         </header>
-        <div class="card-content">
+        <div class="card-content light-grey">
             <div class="columns">
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Número de orden</p>
                         </div>
                         <div class="message-body" th:text="${bill.orderNumber}"></div>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Fecha de la factura</p>
                         </div>
                         <div class="message-body" th:text="${#temporals.format(bill.billDate, 'dd MMM yyyy')}"></div>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Proveedor</p>
                         </div>
                         <div class="message-body" th:text="${bill.supplierName}"></div>
@@ -49,7 +49,7 @@
             <div class="columns">
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Número de la factura</p>
                         </div>
                         <div class="message-body" th:text="${bill.billNumber}"></div>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Total Factura</p>
                         </div>
                         <div class="message-body" th:text="${bill.totalPrice}"></div>
@@ -65,7 +65,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Tipo de Pago</p>
                         </div>
                         <div class="message-body" th:text="${bill.billType}"></div>
@@ -75,7 +75,7 @@
             <div class="columns">
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Base 21% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva21base}"></div>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Base 10% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva10base}"></div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Base 5% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva5base}"></div>
@@ -99,7 +99,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Base 4% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva4base}"></div>
@@ -109,7 +109,7 @@
             <div class="columns">
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Cantidad 21% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva21amount}"></div>
@@ -117,7 +117,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Cantidad 10% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva10amount}"></div>
@@ -125,7 +125,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Cantidad 5% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva5amount}"></div>
@@ -133,7 +133,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Cantidad 4% IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva4amount}"></div>
@@ -143,7 +143,7 @@
             <div class="columns">
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Cantidad Exenta</p>
                         </div>
                         <div class="message-body" th:text="${bill.iva0}"></div>
@@ -151,7 +151,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Suma total IVA</p>
                         </div>
                         <div class="message-body" th:text="${bill.totalIva}"></div>
@@ -159,7 +159,7 @@
                 </div>
                 <div class="column">
                     <article class="message">
-                        <div class="message-header">
+                        <div class="message-header hard-grey">
                             <p>Retención</p>
                         </div>
                         <div class="message-body" th:text="${bill.retention}"></div>

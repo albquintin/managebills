@@ -9,6 +9,7 @@ public class SupplierMapper {
                 .id(supplier.getId())
                 .name(supplier.getName())
                 .cif(supplier.getCif())
+                .accumulatedQuantity(supplier.getAccumulatedQuantity())
                 .build();
         return supplierDto;
     }
@@ -18,6 +19,7 @@ public class SupplierMapper {
                 .id(supplierDto.getId())
                 .name(supplierDto.getName())
                 .cif(supplierDto.getCif())
+                .accumulatedQuantity(supplierDto.getAccumulatedQuantity())
                 .build();
         return supplier;
     }

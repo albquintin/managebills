@@ -14,12 +14,12 @@
 <br /><br />
 <div class="container">
   <div class="card">
-    <header class="card-header">
+    <header class="card-header friendly-white">
       <p class="card-header-title">
         Editar proveedor
       </p>
     </header>
-    <div class="card-content">
+    <div class="card-content light-grey">
       <form role="form" method="post" th:action="@{/suppliers/suppliers/{supplierId}(supplierId=${supplier.id})}" th:object="${supplier}">
         <div class="columns">
           <div class="column">
@@ -34,6 +34,7 @@
                         name="name"
                         th:field="*{name}"
                 >
+                <p th:if="${#fields.hasErrors('name')}" class="help is-danger" th:errors="*{name}"></p>
               </div>
             </div>
           </div>
@@ -56,9 +57,9 @@
 
 
         <div>
-          <button type="submit" class="button is-primary">Editar</button>
+          <button type="submit" class="button green-soil">Editar</button>
           <a th:href="@{/suppliers/suppliers}"
-             class="button is-link">
+             class="button blue-machine">
             Volver
           </a>
         </div>

@@ -11,4 +11,5 @@ public interface BillService {
     BillDto findBillById(Long billId);
     void deleteBill(Long billId);
     void updateBill(BillDto billDto);
+    List<BillDto> findBillsByMonth(Long month);
 }

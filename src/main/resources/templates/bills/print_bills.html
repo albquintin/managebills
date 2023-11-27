@@ -13,29 +13,57 @@
 <body>
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
-<h1 class="title">Lista de facturas</h1>
-<table class="table is-bordered is-striped is-fullwidth" id="billsTable">
+<div class="container">
+  <h1 class="title" style="padding-left:25%;" th:text="'Facturas del mes de ' + ${monthInLetters==null?'...':monthInLetters} "></h1>
+</div>
+<div th:style="${searchDone ? 'display:none' : 'display:block'}">
+  <form th:action="@{/bills/search}" >
+    <div class="control">
+      <div class="select">
+        <select name="month" aria-label="choose a month">
+          <option th:value="1" th:text="Enero"></option>
+          <option th:value="2" th:text="Febrero"></option>
+          <option th:value="3" th:text="Marzo"></option>
+          <option th:value="4" th:text="Abril"></option>
+          <option th:value="5" th:text="Mayo"></option>
+          <option th:value="6" th:text="Junio"></option>
+          <option th:value="7" th:text="Julio"></option>
+          <option th:value="8" th:text="Agosto"></option>
+          <option th:value="9" th:text="Septiembre"></option>
+          <option th:value="10" th:text="Octubre"></option>
+          <option th:value="11" th:text="Noviembre"></option>
+          <option th:value="12" th:text="Diciembre"></option>
+        </select>
+      </div>
+      <div class="control">
+        <button class="button green-soil" type="submit">Elegir</button>
+      </div>
+    </div>
+</div>
+</form>
+<br/>
+<table class="table is-bordered is-striped is-fullwidth" id="billsForMonthTable">
   <thead>
   <tr>
     <th>Número Orden</th>
-    <th>Fecha</th>
+    <th>Día</th>
     <th>Proveedor</th>
     <th>Número Factura</th>
-    <th>Precio total</th>
+    <th>Total Factura</th>
     <th>Tipo pago</th>
     <th>21%</th>
     <th>10%</th>
     <th>5%</th>
     <th>4%</th>
-    <th>Total IVA</th>
     <th>Exento</th>
+    <th>Total IVA</th>
     <th>Retención</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each = "bill : ${bills}">
     <td th:text="${bill.orderNumber}"></td>
-    <td th:text="${#temporals.format(bill.billDate, 'dd MMM yyyy')}"></td>
+    <td th:text="${#temporals.day(bill.billDate)}"></td>
     <td th:text="${bill.supplierName}"></td>
     <td th:text="${bill.billNumber}"></td>
     <td th:text="${bill.totalPrice}"></td>
@@ -44,11 +72,27 @@
     <td th:text="${bill.iva10base}"></td>
     <td th:text="${bill.iva5base}"></td>
     <td th:text="${bill.iva4base}"></td>
-    <td th:text="${bill.totalIva}"></td>
     <td th:text="${bill.iva0}"></td>
+    <td th:text="${bill.totalIva}"></td>
     <td th:text="${bill.retention}"></td>
   </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td th:text="${sumOfMonth.totalPrice}"></td>
+    <td></td>
+    <td th:text="${sumOfMonth.iva21base}"></td>
+    <td th:text="${sumOfMonth.iva10base}"></td>
+    <td th:text="${sumOfMonth.iva5base}"></td>
+    <td th:text="${sumOfMonth.iva4base}"></td>
+    <td th:text="${sumOfMonth.iva0}"></td>
+    <td th:text="${sumOfMonth.totalIva}"></td>
+    <td th:text="${sumOfMonth.retention}"></td>
+  </tr>
   </tbody>
+
 </table>
 <br/><br/>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
