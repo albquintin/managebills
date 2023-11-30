@@ -15,6 +15,7 @@ $(document).ready(function()  {
   $('#billsTable').DataTable();
 });
 $('#billsTable').DataTable({
+    'order': [[0, 'desc']],
     'aoColumnDefs': [{
         'bSortable': false,
         'aTargets': [-1]

@@ -59,4 +59,22 @@ public class BillServiceImpl implements BillService {
         List<Bill> bills = billRepository.findBillsByMonth(month);
         return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<BillDto> findBillByOrderNumber(Long orderNumber) {
+        Bill bill = billRepository.findBillByOrderNumber(orderNumber);
+        if(bill == null)
+            return Optional.empty();
+        else
+            return Optional.of(BillMapper.mapToBillDto(bill));
+    }
+
+    @Override
+    public Optional<BillDto> findBillByBillNumber(String billNumber) {
+        Bill bill = billRepository.findBillByBillNumber(billNumber);
+        if(bill == null)
+            return Optional.empty();
+        else
+            return Optional.of(BillMapper.mapToBillDto(bill));
+    }
 }

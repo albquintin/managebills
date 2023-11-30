@@ -35,6 +35,9 @@
                         name="orderNumber"
                         th:field="*{orderNumber}"
                 >
+                <p th:if="${orderNumberRepeated} == true" class="help is-danger">
+                  El número de orden está repetido
+                </p>
               </div>
             </div>
           </div>
@@ -79,6 +82,9 @@
                         name="billNumber"
                         th:field="*{billNumber}"
                 >
+                <p th:if="${billNumberRepeated} == true" class="help is-danger">
+                  El número de la factura está repetido
+                </p>
               </div>
             </div>
           </div>

@@ -30,7 +30,8 @@
             <td th:text="${supplierStat.count}"></td>
             <td th:text="${supplier.name}"></td>
             <td th:text="${supplier.cif}"></td>
-            <td th:text="${supplier.accumulatedQuantity!=null?supplier.accumulatedQuantity:0.0} + '€'"></td>
+            <td th:text="${supplier.accumulatedQuantity!=null?supplier.accumulatedQuantity:0.0} + '€'"
+                th:style="${supplier.accumulatedQuantity>3000?'color:red':'color:green'}" ></td>
             <td>
                 <a th:href="@{/suppliers/suppliers/edit/{supplierId}(supplierId=${supplier.id})}"
                    class="button is-small blue-machine">
@@ -45,16 +46,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
-<script>
-    $(document).ready(function()  {
-        $('#suppliersTable').DataTable();
-    });
-    $('#suppliersTable').DataTable({
-        'aoColumnDefs': [{
-            'bSortable': false,
-            'aTargets': [-1]
-        }]
-    });
-</script>
+<script th:src="@{/js/suppliers.js}"></script>
 </body>
 </html>

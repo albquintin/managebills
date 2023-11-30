@@ -166,6 +166,16 @@
                     </article>
                 </div>
             </div>
+            <div>
+                <a th:href="@{/bills/bills/edit/{billId}(billId=${bill.id})}"
+                   class="button hard-green">
+                    Editar
+                </a>
+                <a th:href="@{/bills/bills}"
+                   class="button hard-grey">
+                    Volver
+                </a>
+            </div>
         </div>
     </div>
 </div>

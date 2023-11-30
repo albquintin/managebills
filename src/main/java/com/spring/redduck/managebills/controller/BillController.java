@@ -19,6 +19,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BillController {
@@ -65,6 +66,27 @@ public class BillController {
             model.addAttribute("suppliers", suppliers);
             return "/bills/create_bill";
         }
+
+        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumber(billDto.getOrderNumber());
+        if(billRepeatedByOrderNumber.isPresent()){
+            Boolean orderNumberRepeated = true;
+            model.addAttribute("orderNumberRepeated", orderNumberRepeated);
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "/bills/create_bill";
+        }
+
+        Optional<BillDto> billRepeatedByBillNumber = billService.findBillByBillNumber(billDto.getBillNumber());
+        if(billRepeatedByBillNumber.isPresent()){
+            Boolean billNumberRepeated = true;
+            model.addAttribute("billNumberRepeated", billNumberRepeated);
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "/bills/create_bill";
+        }
+
         billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_EVEN));
         billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_EVEN));
         billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_EVEN));

@@ -10,7 +10,8 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 
     @Query("SELECT b FROM Bill b WHERE MONTH(b.billDate) = :month ORDER BY b.billDate")
     List<Bill> findBillsByMonth(Long month);
-
-    @Query("SELECT b FROM Bill b ORDER BY b.billDate")
-    List<Bill> findAllBillsOrdered();
+    @Query("SELECT b FROM Bill b WHERE b.orderNumber = :orderNumber")
+    Bill findBillByOrderNumber(Long orderNumber);
+    @Query("SELECT b FROM Bill b WHERE b.billNumber = :billNumber")
+    Bill findBillByBillNumber(String billNumber);
 }
