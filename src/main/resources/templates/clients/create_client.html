@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clientes</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br /><br />
+<div class="container">
+  <div class="card">
+    <header class="card-header friendly-white">
+      <p class="card-header-title">
+        Nuevo cliente
+      </p>
+    </header>
+    <div class="card-content light-grey">
+      <form role="form" method="post" th:action="@{/clients/clients}" th:object="${client}">
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label" for="name">Nombre del Cliente</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el nombre del cliente"
+                        id="name"
+                        name="name"
+                        th:field="*{name}"
+                >
+                <p th:if="${#fields.hasErrors('name')}" class="help is-danger" th:errors="*{name}"></p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label" for="dni">DNI/CIF</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el dni del cliente"
+                        id="dni"
+                        name="dni"
+                        th:field="*{dni}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="columns">
+          <div class="column is-half">
+            <div class="field">
+              <label class="label" for="address">Dirección</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte la dirección del cliente"
+                        id="address"
+                        name="address"
+                        th:field="*{address}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label" for="zipCode">Código Postal</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el código postal"
+                        id="zipCode"
+                        name="zipCode"
+                        th:field="*{zipCode}"
+                >
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label" for="city">Ciudad</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte la ciudad"
+                        id="city"
+                        name="city"
+                        th:field="*{city}"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="submit" class="button green-soil">Crear</button>
+          <a th:href="@{/clients/clients}"
+             class="button blue-machine">
+            Volver
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

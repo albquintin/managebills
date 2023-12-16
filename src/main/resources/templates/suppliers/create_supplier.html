@@ -24,7 +24,7 @@
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label">Nombre del Proveedor</label>
+              <label class="label" for="name">Nombre del Proveedor</label>
               <div class="control">
                 <input
                         class="input"
@@ -40,7 +40,7 @@
           </div>
           <div class="column">
             <div class="field">
-              <label class="label">CIF</label>
+              <label class="label" for="cif">CIF</label>
               <div class="control">
                 <input
                         class="input"
@@ -54,8 +54,6 @@
             </div>
           </div>
         </div>
-
-
         <div>
           <button type="submit" class="button green-soil">Crear</button>
           <a th:href="@{/suppliers/suppliers}"

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clientes</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+    <h1 class="title">Lista de clientes</h1>
+    <table class="table is-bordered is-striped is-fullwidth" id="clientsTable">
+        <thead>
+        <tr>
+            <th style="width:10%">#</th>
+            <th style="width:15%">Cliente</th>
+            <th style="width:15%">DNI/CIF</th>
+            <th style="width:40%">Dirección</th>
+            <th style="width:10%">Cantidad acumulada</th>
+            <th style="width:10%">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "client, clientStat : ${clients}">
+            <td th:text="${clientStat.count}"></td>
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.dni}"></td>
+            <td th:text="${client.address} + ' ' + ${client.zipCode} + ', ' + ${client.city}"></td>
+            <td th:text="${client.accumulatedQuantity!=null?client.accumulatedQuantity:0.0} + '€'"
+                th:style="${client.accumulatedQuantity>3000?'color:red':'color:green'}" ></td>
+            <td>
+                <a th:href="@{/clients/clients/edit/{clientId}(clientId=${client.id})}"
+                   class="button is-small blue-machine">
+                    Editar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/><br/>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
+<script th:src="@{/js/clients.js}"></script>
+</body>
+</html>

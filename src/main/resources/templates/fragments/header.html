@@ -51,6 +51,34 @@
           </a>
         </div>
       </div>
+      <div class="navbar-item has-dropdown is-hoverable copper">
+        <a class="navbar-link copper headerItem">
+          Pagos de clientes
+        </a>
+
+        <div class="navbar-dropdown copper">
+          <a class="navbar-item copper headerItem" th:href="@{/payments/payments}">
+            Listado
+          </a>
+          <a class="navbar-item copper headerItem" th:href="@{/payments/payments/newpayment}">
+            Nuevo pago
+          </a>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable copper">
+        <a class="navbar-link copper headerItem">
+          Clientes
+        </a>
+
+        <div class="navbar-dropdown copper">
+          <a class="navbar-item copper headerItem" th:href="@{/clients/clients}">
+            Listado
+          </a>
+          <a class="navbar-item copper headerItem" th:href="@{/clients/clients/newclient}">
+            Nuevo cliente
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

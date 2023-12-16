@@ -130,8 +130,8 @@ public class BillController {
         return "redirect:/bills/bills";
     }
 
-    @GetMapping("bills/bills/edit/{eventId}")
-    public String editBillForm(@PathVariable("eventId") Long billId, Model model){
+    @GetMapping("bills/bills/edit/{billId}")
+    public String editBillForm(@PathVariable("billId") Long billId, Model model){
         BillDto billDto = billService.findBillById(billId);
         model.addAttribute("bill", billDto);
         List<SupplierDto> suppliers = supplierService.findAllOrdered();

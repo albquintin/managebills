@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Facturas</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br /><br />
+<div class="container">
+    <div class="card">
+        <header class="card-header friendly-white">
+            <p class="card-header-title">
+                Nuevo pago
+            </p>
+        </header>
+        <div class="card-content light-grey">
+            <form role="form" method="post" th:action="@{/payments/payments}" th:object="${payment}">
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="paymentDate">Fecha del pago</label>
+                            <div class="control">
+                                <input
+                                        class="input"
+                                        type="date"
+                                        id="paymentDate"
+                                        name="paymentDate"
+                                        th:field="*{paymentDate}"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Cliente</label>
+                            <div class="select">
+                                <select th:field="*{clientId}">
+                                    <option th:each="client: ${clients}"
+                                            th:value="${client.id}"
+                                            th:text="${client.name}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="totalPrice">Total Pago</label>
+                            <div class="control">
+                                <input
+                                        class="input"
+                                        type="number"
+                                        step=".01"
+                                        id="totalPrice"
+                                        name="totalPrice"
+                                        th:field="*{totalPrice}"
+                                >
+                                <p th:if="${#fields.hasErrors('totalPrice')}" class="help is-danger" th:errors="*{totalPrice}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" for="paymentType">Tipo de Pago</label>
+                            <div class="control">
+                                <input
+                                        class="input"
+                                        type="text"
+                                        placeholder="Inserte el tipo de pago"
+                                        id="paymentType"
+                                        name="paymentType"
+                                        th:field="*{paymentType}"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="button green-soil">Crear</button>
+                    <a th:href="@{/payments/payments}"
+                       class="button blue-machine">
+                        Volver
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -14,7 +14,7 @@
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-  <h1 class="title">Lista de facturas</h1>
+  <h1 class="title">Lista de facturas de proveedores</h1>
   <table class="table is-bordered is-striped is-fullwidth" id="billsTable">
     <thead>
     <tr>
@@ -26,8 +26,7 @@
       <th style="width:10%">Total Factura</th>
       <th style="width:10%">Tipo pago</th>
       <th style="width:10%">Total IVA</th>
-      <th style="width:10%">Retención</th>
-      <th style="width:20%">Acciones</th>
+      <th style="width:30%">Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -40,7 +39,6 @@
       <td th:text="${bill.totalPrice} + '€'"></td>
       <td th:text="${bill.billType}"></td>
       <td th:text="${bill.totalIva} + '€'"></td>
-      <td th:text="${bill.retention} + '€'"></td>
       <td>
         <a th:href="@{/bills/bills/edit/{billId}(billId=${bill.id})}"
             class="button is-small blue-machine">
