@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Caja Diaria</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+    <h1 class="title">Lista de cobros</h1>
+    <table class="table is-bordered is-striped is-fullwidth" id="cashTable">
+        <thead>
+        <tr>
+            <th style="width:10%">Id</th>
+            <th style="width:20%">Fecha</th>
+            <th style="width:10%">Base 10%</th>
+            <th style="width:10%">Total 10%</th>
+            <th style="width:10%">Base 21%</th>
+            <th style="width:10%">Total 21%</th>
+            <th style="width:10%">Bruto</th>
+            <th style="width:20%">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "cash : ${cashList}">
+            <td th:text="${cash.id}"></td>
+            <td th:text="${#temporals.format(cash.paymentDate, 'dd MMM yyyy')}"></td>
+            <td th:text="${cash.iva10base} + '€'"></td>
+            <td th:text="${cash.iva10amount} + '€'"></td>
+            <td th:text="${cash.iva21base} + '€'"></td>
+            <td th:text="${cash.iva21amount} + '€'"></td>
+            <td th:text="${cash.totalPrice} + '€'"></td>
+            <td>
+                <a th:href="@{/cash/cash/edit/{cashId}(cashId=${cash.id})}"
+                   class="button is-small blue-machine">
+                    Editar
+                </a>
+                <a class="button is-small red-blood open-modal">
+                    Borrar
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br/><br/>
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head dune">
+            <p class="modal-card-title">Borrar Cobro</p>
+            <button class="delete close-modal" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <p id="modal-content"></p>
+            <br/>
+            <a class="button red-blood delete-button">Borrar</a>
+            <button class="button blue-machine close-modal">Volver</button>
+        </section>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
+<script th:src="@{/js/cash.js}"></script>
+</body>
+</html>

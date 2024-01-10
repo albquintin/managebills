@@ -79,6 +79,23 @@
           </a>
         </div>
       </div>
+      <div class="navbar-item has-dropdown is-hoverable copper">
+        <a class="navbar-link copper headerItem">
+          Caja
+        </a>
+
+        <div class="navbar-dropdown copper">
+          <a class="navbar-item copper headerItem" th:href="@{/cash/cash}">
+            Listado
+          </a>
+          <a class="navbar-item copper headerItem" th:href="@{/cash/cash/newcash}">
+            Nuevo cobro
+          </a>
+          <a class="navbar-item copper headerItem" th:href="@{/cash/printcash}">
+            Cobros por mes
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>

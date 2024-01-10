@@ -2,11 +2,9 @@ package com.spring.redduck.managebills.controller;
 
 import com.spring.redduck.managebills.dto.BillDto;
 import com.spring.redduck.managebills.dto.SupplierDto;
-import com.spring.redduck.managebills.entity.Bill;
-import com.spring.redduck.managebills.entity.Supplier;
-import com.spring.redduck.managebills.mapper.BillMapper;
 import com.spring.redduck.managebills.service.BillService;
 import com.spring.redduck.managebills.service.SupplierService;
+import com.spring.redduck.managebills.utils.Utils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,14 +36,6 @@ public class BillController {
         List<BillDto> bills = billService.findAllBills();
         model.addAttribute("bills", bills);
         return "/bills/bills";
-    }
-    @GetMapping("/bills/printbills")
-    public String printBills(Model model){
-        List<BillDto> bills = new ArrayList<BillDto>();
-        model.addAttribute("bills", bills);
-        model.addAttribute("sumOfMonth", new BillDto());
-        model.addAttribute("searchDone", false);
-        return "/bills/print_bills";
     }
 
     @GetMapping("/bills/bills/newbill")
@@ -181,36 +171,24 @@ public class BillController {
         billService.updateBill(billDto);
         return "redirect:/bills/bills";
     }
-
+    @GetMapping("/bills/printbills")
+    public String printBills(Model model){
+        List<BillDto> bills = new ArrayList<BillDto>();
+        model.addAttribute("bills", bills);
+        model.addAttribute("sumOfMonth", new BillDto());
+        model.addAttribute("searchDone", false);
+        return "/bills/print_bills";
+    }
     @GetMapping("/bills/search")
     public String searchBillsByMonth(@RequestParam(value = "month") String month, Model model){
         List<BillDto> bills = billService.findBillsByMonth(Long.parseLong(month));
         model.addAttribute("bills", bills);
-        String monthInLetters = returnMonth(month);
+        String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);
         BillDto sumOfMonth = returnSumsOfTheMonth(bills);
         model.addAttribute("sumOfMonth", sumOfMonth);
         model.addAttribute("searchDone", true);
         return "/bills/print_bills";
-    }
-
-    public String returnMonth(String monthInNumber){
-        String monthInLetters = "";
-        switch(monthInNumber){
-            case "1": monthInLetters = "Enero"; break;
-            case "2": monthInLetters = "Febrero"; break;
-            case "3": monthInLetters = "Marzo"; break;
-            case "4": monthInLetters = "Abril"; break;
-            case "5": monthInLetters = "Mayo"; break;
-            case "6": monthInLetters = "Junio"; break;
-            case "7": monthInLetters = "Julio"; break;
-            case "8": monthInLetters = "Agosto"; break;
-            case "9": monthInLetters = "Septiembre"; break;
-            case "10": monthInLetters = "Octubre"; break;
-            case "11": monthInLetters = "Noviembre"; break;
-            case "12": monthInLetters = "Diciembre"; break;
-        }
-        return monthInLetters;
     }
 
     public BillDto returnSumsOfTheMonth(List<BillDto> bills){
