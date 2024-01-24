@@ -77,4 +77,10 @@ public class BillServiceImpl implements BillService {
         else
             return Optional.of(BillMapper.mapToBillDto(bill));
     }
+
+    @Override
+    public List<BillDto> findBillsBySupplier(Long supplierId) {
+        List<Bill>bills = billRepository.findBillsBySupplier(supplierId);
+        return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
+    }
 }

@@ -7,10 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Controller
@@ -24,6 +21,8 @@ public class ClientController {
     public String clients(Model model){
         List<ClientDto> clients = clientService.findAllClientsWithAccumulatedQuantity();
         model.addAttribute("clients", clients);
+        String year = "2024";
+        model.addAttribute("year", year);
         return "/clients/clients";
     }
     @GetMapping("/clients/clients/newclient")
@@ -64,5 +63,11 @@ public class ClientController {
         clientService.updateClient(clientDto);
         return "redirect:/clients/clients";
     }
-
+    @GetMapping("/clients/searchQuantityByYear")
+    public String searchQuantityByYear(@RequestParam(value = "year") String year, Model model){
+        List<ClientDto> clients = clientService.findQuantitiesByYear(Long.parseLong(year));
+        model.addAttribute("clients", clients);
+        model.addAttribute("year", year);
+        return "/clients/clients";
+    }
 }

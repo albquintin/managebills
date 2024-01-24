@@ -51,4 +51,10 @@ public class ClientServiceImpl implements ClientService {
         List<Client> clients = clientRepository.findAllClientsWithAccumulatedQuantity();
         return clients.stream().map((client) -> ClientMapper.mapToClientDto(client)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<ClientDto> findQuantitiesByYear(Long year) {
+        List<Client> clients = clientRepository.findQuantitiesByYear(year);
+        return clients.stream().map((client) -> ClientMapper.mapToClientDto(client)).collect(Collectors.toList());
+    }
 }

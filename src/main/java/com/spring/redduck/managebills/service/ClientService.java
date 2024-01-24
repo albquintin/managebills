@@ -11,4 +11,5 @@ public interface ClientService {
     void updateClient(ClientDto clientDto);
     List<ClientDto> findAllOrdered();
     List<ClientDto> findAllClientsWithAccumulatedQuantity();
+    List<ClientDto> findQuantitiesByYear(Long year);
 }

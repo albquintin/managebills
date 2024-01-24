@@ -14,15 +14,36 @@
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-    <h1 class="title">Lista de proveedores</h1>
+    <div class="columns">
+        <div class="column is-three-quarters">
+            <h1 class="title" th:text="'Lista de proveedores'"></h1>
+        </div>
+        <div class="column">
+            <form th:action="@{/suppliers/searchQuantityByYear}">
+                <div class="field has-addons has-addons-right">
+                    <div class="control is-expanded">
+                        <div class="select is-fullwidth">
+                            <select name="year">
+                                <option th:value="2023" th:text="2023"></option>
+                                <option th:value="2024" th:text="2024"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button green-soil">Elegir</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <table class="table is-bordered is-striped is-fullwidth" id="suppliersTable">
         <thead>
         <tr>
             <th style="width:10%">#</th>
-            <th style="width:30%">Proveedor</th>
-            <th style="width:30%">CIF</th>
-            <th style="width:20%">Cantidad acumulada</th>
-            <th style="width:10%">Acciones</th>
+            <th style="width:20%">Proveedor</th>
+            <th style="width:20%">CIF</th>
+            <th style="width:30%" th:text="'Cantidad acumulada año '+ ${year}"></th>
+            <th style="width:20%">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -36,6 +57,10 @@
                 <a th:href="@{/suppliers/suppliers/edit/{supplierId}(supplierId=${supplier.id})}"
                    class="button is-small blue-machine">
                     Editar
+                </a>
+                <a th:href="@{/suppliers/supplier_bills/{supplierId}(supplierId=${supplier.id})}"
+                   class="button is-small is-link is-light">
+                    Facturas
                 </a>
             </td>
         </tr>

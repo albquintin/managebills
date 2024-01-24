@@ -14,16 +14,37 @@
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-    <h1 class="title">Lista de clientes</h1>
+    <div class="columns">
+        <div class="column is-three-quarters">
+            <h1 class="title">Lista de clientes</h1>
+        </div>
+        <div class="column">
+            <form th:action="@{/clients/searchQuantityByYear}">
+                <div class="field has-addons has-addons-right">
+                    <div class="control is-expanded">
+                        <div class="select is-fullwidth">
+                            <select name="year">
+                                <option th:value="2023" th:text="2023"></option>
+                                <option th:value="2024" th:text="2024"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control">
+                        <button type="submit" class="button green-soil">Elegir</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <table class="table is-bordered is-striped is-fullwidth" id="clientsTable">
         <thead>
         <tr>
             <th style="width:10%">#</th>
             <th style="width:15%">Cliente</th>
-            <th style="width:15%">DNI/CIF</th>
-            <th style="width:40%">Dirección</th>
-            <th style="width:10%">Cantidad acumulada</th>
-            <th style="width:10%">Acciones</th>
+            <th style="width:10%">DNI/CIF</th>
+            <th style="width:25%">Dirección</th>
+            <th style="width:20%" th:text="'Cantidad acumulada año '+ ${year}"></th>
+            <th style="width:20%">Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -38,6 +59,10 @@
                 <a th:href="@{/clients/clients/edit/{clientId}(clientId=${client.id})}"
                    class="button is-small blue-machine">
                     Editar
+                </a>
+                <a th:href="@{/clients/client_payments/{clientId}(clientId=${client.id})}"
+                   class="button is-small is-link is-light">
+                    Pagos
                 </a>
             </td>
         </tr>

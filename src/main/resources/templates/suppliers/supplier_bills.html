@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Facturas</title>
+  <link th:href="@{/css/styles.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+  <h1 class="title" th:text="'Lista de facturas del proveedor ' + ${supplier}"></h1>
+  <table class="table is-bordered is-striped is-fullwidth" id="billsTable">
+    <thead>
+    <tr>
+      <th style="display:none;">Id</th>
+      <th style="width:10%">Número Orden</th>
+      <th style="width:10%">Fecha</th>
+      <th style="width:10%">Proveedor</th>
+      <th style="width:10%">Número Factura</th>
+      <th style="width:10%">Total Factura</th>
+      <th style="width:10%">Tipo pago</th>
+      <th style="width:10%">Total IVA</th>
+      <th style="width:30%">Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each = "bill : ${bills}">
+      <td th:text="${bill.id}" style="display:none;"></td>
+      <td th:text="${bill.orderNumber}"></td>
+      <td th:text="${#temporals.format(bill.billDate, 'dd MMM yyyy')}"></td>
+      <td th:text="${bill.supplierName}"></td>
+      <td th:text="${bill.billNumber}"></td>
+      <td th:text="${bill.totalPrice} + '€'"></td>
+      <td th:text="${bill.billType}"></td>
+      <td th:text="${bill.totalIva} + '€'"></td>
+      <td>
+        <a th:href="@{/bills/bills/edit/{billId}(billId=${bill.id})}"
+           class="button is-small blue-machine">
+          Editar
+        </a>
+        <a th:href="@{/bills/bills/view/{billId}(billId=${bill.id})}"
+           class="button is-small is-link is-light">
+          Detalles
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
+</body>
+</html>

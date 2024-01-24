@@ -191,6 +191,15 @@ public class BillController {
         return "/bills/print_bills";
     }
 
+    @GetMapping("/suppliers/supplier_bills/{supplierId}")
+    public String supplierBills(@PathVariable("supplierId") Long supplierId, Model model){
+        List<BillDto> bills = billService.findBillsBySupplier(supplierId);
+        model.addAttribute("bills", bills);
+        SupplierDto supplier = supplierService.findSupplierById(supplierId);
+        model.addAttribute("supplier", supplier.getName());
+        return "suppliers/supplier_bills";
+    }
+
     public BillDto returnSumsOfTheMonth(List<BillDto> bills){
         BillDto billSum = new BillDto(BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0),
                 BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));

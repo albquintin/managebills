@@ -1,7 +1,9 @@
 package com.spring.redduck.managebills.controller;
 
+import com.spring.redduck.managebills.dto.BillDto;
 import com.spring.redduck.managebills.dto.PaymentDto;
 import com.spring.redduck.managebills.dto.ClientDto;
+import com.spring.redduck.managebills.dto.SupplierDto;
 import com.spring.redduck.managebills.service.PaymentService;
 import com.spring.redduck.managebills.service.ClientService;
 import jakarta.validation.Valid;
@@ -77,5 +79,13 @@ public class PaymentController {
         paymentDto.setId(paymentId);
         paymentService.updatePayment(paymentDto);
         return "redirect:/payments/payments";
+    }
+    @GetMapping("/clients/client_payments/{clientId}")
+    public String clientPayments(@PathVariable("clientId") Long clientId, Model model){
+        List<PaymentDto> payments = paymentService.findPaymentsByClient(clientId);
+        model.addAttribute("payments", payments);
+        ClientDto client = clientService.findClientById(clientId);
+        model.addAttribute("client", client.getName());
+        return "clients/client_payments";
     }
 }

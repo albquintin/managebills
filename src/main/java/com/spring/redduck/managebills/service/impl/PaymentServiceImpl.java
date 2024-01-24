@@ -52,4 +52,10 @@ public class PaymentServiceImpl implements PaymentService {
         Payment payment = PaymentMapper.mapToPayment(paymentDto, client.get());
         paymentRepository.save(payment);
     }
+
+    @Override
+    public List<PaymentDto> findPaymentsByClient(Long clientId) {
+        List<Payment> payments = paymentRepository.findPaymentsByClient(clientId);
+        return payments.stream().map((payment) -> PaymentMapper.mapToPaymentDto(payment)).collect(Collectors.toList());
+    }
 }

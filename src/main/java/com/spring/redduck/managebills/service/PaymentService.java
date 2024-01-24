@@ -10,4 +10,5 @@ public interface PaymentService {
     PaymentDto findPaymentById(Long paymentId);
     void deletePayment(Long clientBillId);
     void updatePayment(PaymentDto paymentDto);
+    List<PaymentDto> findPaymentsByClient(Long clientId);
 }
