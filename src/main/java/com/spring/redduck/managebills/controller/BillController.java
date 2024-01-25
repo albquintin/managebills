@@ -33,7 +33,7 @@ public class BillController {
 
     @GetMapping("/bills/bills")
     public String bills(Model model){
-        List<BillDto> bills = billService.findAllBills();
+        List<BillDto> bills = billService.findBillsOfCurrentYear();
         model.addAttribute("bills", bills);
         return "/bills/bills";
     }
@@ -198,6 +198,12 @@ public class BillController {
         SupplierDto supplier = supplierService.findSupplierById(supplierId);
         model.addAttribute("supplier", supplier.getName());
         return "suppliers/supplier_bills";
+    }
+    @GetMapping("/bills/oldbills")
+    public String oldBills(Model model){
+        List<BillDto> bills = billService.findOldBills();
+        model.addAttribute("bills", bills);
+        return "/bills/old_bills";
     }
 
     public BillDto returnSumsOfTheMonth(List<BillDto> bills){

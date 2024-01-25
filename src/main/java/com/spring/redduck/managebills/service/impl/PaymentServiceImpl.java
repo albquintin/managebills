@@ -58,4 +58,16 @@ public class PaymentServiceImpl implements PaymentService {
         List<Payment> payments = paymentRepository.findPaymentsByClient(clientId);
         return payments.stream().map((payment) -> PaymentMapper.mapToPaymentDto(payment)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<PaymentDto> findPaymentsOfCurrentYear() {
+        List<Payment> payments = paymentRepository.findPaymentsOfCurrentYear();
+        return payments.stream().map((payment) -> PaymentMapper.mapToPaymentDto(payment)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PaymentDto> findOldPayments() {
+        List<Payment> payments = paymentRepository.findOldPayments();
+        return payments.stream().map((payment) -> PaymentMapper.mapToPaymentDto(payment)).collect(Collectors.toList());
+    }
 }

@@ -14,7 +14,7 @@
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-  <h1 class="title" th:text="'Lista de pagos del cliente ' + ${client}"></h1>
+  <h1 class="title">Lista de pagos</h1>
   <table class="table is-bordered is-striped is-fullwidth" id="paymentsTable">
     <thead>
     <tr>
@@ -38,10 +38,29 @@
            class="button is-small blue-machine">
           Editar
         </a>
+        <a class="button is-small red-blood open-modal">
+          Borrar
+        </a>
       </td>
     </tr>
     </tbody>
   </table>
+</div>
+<br/><br/>
+<div class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head dune">
+      <p class="modal-card-title">Borrar Pago</p>
+      <button class="delete close-modal" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <p id="modal-content"></p>
+      <br/>
+      <a class="button red-blood delete-button">Borrar</a>
+      <button class="button blue-machine close-modal">Volver</button>
+    </section>
+  </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>

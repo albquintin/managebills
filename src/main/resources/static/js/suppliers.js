@@ -8,3 +8,6 @@ $('#suppliersTable').DataTable({
         'aTargets': [-1]
     }]
 });
+$("#year").on( "change", function() {
+  $('#changeYear').click();
+});

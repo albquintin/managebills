@@ -28,7 +28,7 @@ public class PaymentController {
     }
     @GetMapping("/payments/payments")
     public String payments(Model model){
-        List<PaymentDto> payments = paymentService.findAllPayments();
+        List<PaymentDto> payments = paymentService.findPaymentsOfCurrentYear();
         model.addAttribute("payments", payments);
         return "/payments/payments";
     }
@@ -87,5 +87,11 @@ public class PaymentController {
         ClientDto client = clientService.findClientById(clientId);
         model.addAttribute("client", client.getName());
         return "clients/client_payments";
+    }
+    @GetMapping("/payments/oldpayments")
+    public String oldPayments(Model model){
+        List<PaymentDto> payments = paymentService.findOldPayments();
+        model.addAttribute("payments", payments);
+        return "/payments/old_payments";
     }
 }

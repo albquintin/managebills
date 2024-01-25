@@ -9,4 +9,8 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query("SELECT p FROM Payment p WHERE p.client.id = :clientId")
     List<Payment> findPaymentsByClient(Long clientId);
+    @Query("SELECT p FROM Payment p WHERE YEAR(p.paymentDate) = YEAR(CURDATE())")
+    List<Payment> findPaymentsOfCurrentYear();
+    @Query("SELECT p FROM Payment p WHERE YEAR(p.paymentDate) < YEAR(CURDATE())")
+    List<Payment> findOldPayments();
 }

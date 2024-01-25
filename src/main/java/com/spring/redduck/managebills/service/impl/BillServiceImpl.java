@@ -83,4 +83,16 @@ public class BillServiceImpl implements BillService {
         List<Bill>bills = billRepository.findBillsBySupplier(supplierId);
         return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<BillDto> findBillsOfCurrentYear() {
+        List<Bill>bills = billRepository.findBillsOfCurrentYear();
+        return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BillDto> findOldBills() {
+        List<Bill>bills = billRepository.findOldBills();
+        return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
+    }
 }

@@ -16,4 +16,6 @@ public interface BillService {
     Optional<BillDto> findBillByOrderNumber(Long orderNumber);
     Optional<BillDto> findBillByBillNumber(String billNumber);
     List<BillDto> findBillsBySupplier(Long supplierId);
+    List<BillDto> findBillsOfCurrentYear();
+    List<BillDto> findOldBills();
 }
