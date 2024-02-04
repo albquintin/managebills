@@ -62,4 +62,16 @@ public class CashServiceImpl implements CashService {
         else
             return Optional.of(CashMapper.mapToCashDto(cash));
     }
+
+    @Override
+    public List<CashDto> findCashOfCurrentYear() {
+        List<Cash> cashList = cashRepository.findCashOfCurrentYear();
+        return cashList.stream().map((cash) -> CashMapper.mapToCashDto(cash)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CashDto> findOldCash() {
+        List<Cash> cashList = cashRepository.findOldCash();
+        return cashList.stream().map((cash) -> CashMapper.mapToCashDto(cash)).collect(Collectors.toList());
+    }
 }

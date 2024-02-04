@@ -13,4 +13,6 @@ public interface CashService {
     void updateCash(CashDto cashDto);
     List<CashDto> findCashByMonth(Long month);
     Optional<CashDto> findCodiasaCashByMonth(Long month);
+    List<CashDto> findCashOfCurrentYear();
+    List<CashDto> findOldCash();
 }

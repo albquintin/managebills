@@ -11,4 +11,8 @@ public interface CashRepository extends JpaRepository<Cash, Long> {
     List<Cash> findCashByMonth(Long month);
     @Query("SELECT c FROM Cash c WHERE MONTH(c.paymentDate) = :month AND c.iva21amount > 0")
     Cash findCodiasaCashByMonth(Long month);
+    @Query(value = "SELECT c FROM Cash c WHERE YEAR(c.paymentDate) = YEAR(CURDATE())")
+    List<Cash> findCashOfCurrentYear();
+    @Query("SELECT c FROM Cash c WHERE YEAR(c.paymentDate) < YEAR(CURDATE())")
+    List<Cash> findOldCash();
 }

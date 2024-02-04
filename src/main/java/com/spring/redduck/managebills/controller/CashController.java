@@ -25,7 +25,7 @@ public class CashController {
     }
     @GetMapping("/cash/cash")
     public String cash(Model model){
-        List<CashDto> cashList = cashService.findAllCash();
+        List<CashDto> cashList = cashService.findCashOfCurrentYear();
         model.addAttribute("cashList", cashList);
         return "/cash/cash";
     }
@@ -133,6 +133,12 @@ public class CashController {
         model.addAttribute("monthInLetters", monthInLetters);
         model.addAttribute("searchDone", true);
         return "/cash/print_cash";
+    }
+    @GetMapping("/cash/oldcash")
+    public String oldPayments(Model model){
+        List<CashDto> cashList = cashService.findOldCash();
+        model.addAttribute("cashList", cashList);
+        return "/cash/old_cash";
     }
     public CashDto returnSumsOfTheMonth(List<CashDto> cashList, CashDto codiasaCash){
         CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
