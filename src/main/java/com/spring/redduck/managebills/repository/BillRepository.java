@@ -14,8 +14,8 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
     Bill findBillByOrderNumber(Long orderNumber);
     @Query("SELECT b FROM Bill b WHERE b.billNumber = :billNumber")
     Bill findBillByBillNumber(String billNumber);
-    @Query("SELECT b FROM Bill b WHERE b.supplier.id = :supplierId")
-    List<Bill> findBillsBySupplier(Long supplierId);
+    @Query("SELECT b FROM Bill b WHERE b.supplier.id = :supplierId AND YEAR(b.billDate) = :year")
+    List<Bill> findBillsBySupplierAndYear(Long supplierId, Long year);
     @Query(value = "SELECT b FROM Bill b WHERE YEAR(b.billDate) = YEAR(CURDATE())")
     List<Bill> findBillsOfCurrentYear();
     @Query(value = "SELECT b FROM Bill b WHERE YEAR(b.billDate) < YEAR(CURDATE())")

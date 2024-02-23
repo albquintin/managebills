@@ -11,6 +11,9 @@ public interface PaymentService {
     void deletePayment(Long clientBillId);
     void updatePayment(PaymentDto paymentDto);
     List<PaymentDto> findPaymentsByClient(Long clientId);
+    List<PaymentDto> findPaymentsByClientOfCurrentYear(Long clientId);
+    List<PaymentDto> findPaymentsByClientByYear(Long clientId, Long year);
     List<PaymentDto> findPaymentsOfCurrentYear();
     List<PaymentDto> findOldPayments();
+    List<PaymentDto> findPaymentsByMonth(Long month);
 }

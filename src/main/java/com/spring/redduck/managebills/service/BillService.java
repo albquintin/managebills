@@ -15,7 +15,7 @@ public interface BillService {
     List<BillDto> findBillsByMonth(Long month);
     Optional<BillDto> findBillByOrderNumber(Long orderNumber);
     Optional<BillDto> findBillByBillNumber(String billNumber);
-    List<BillDto> findBillsBySupplier(Long supplierId);
+    List<BillDto> findBillsBySupplierAndYear(Long supplierId, Long year);
     List<BillDto> findBillsOfCurrentYear();
     List<BillDto> findOldBills();
 }

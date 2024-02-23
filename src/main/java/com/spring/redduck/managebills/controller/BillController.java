@@ -191,9 +191,9 @@ public class BillController {
         return "/bills/print_bills";
     }
 
-    @GetMapping("/suppliers/supplier_bills/{supplierId}")
-    public String supplierBills(@PathVariable("supplierId") Long supplierId, Model model){
-        List<BillDto> bills = billService.findBillsBySupplier(supplierId);
+    @GetMapping("/suppliers/supplier_bills/{supplierId}/{year}")
+    public String supplierBills(@PathVariable("supplierId") Long supplierId, @PathVariable("year") Long year, Model model){
+        List<BillDto> bills = billService.findBillsBySupplierAndYear(supplierId, year);
         model.addAttribute("bills", bills);
         SupplierDto supplier = supplierService.findSupplierById(supplierId);
         model.addAttribute("supplier", supplier.getName());

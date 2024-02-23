@@ -59,7 +59,7 @@
                    class="button is-small blue-machine">
                     Editar
                 </a>
-                <a th:href="@{/suppliers/supplier_bills/{supplierId}(supplierId=${supplier.id})}"
+                <a th:href="@{/suppliers/supplier_bills/{supplierId}/{year}(supplierId=${supplier.id},year=${year})}"
                    class="button is-small is-link is-light">
                     Facturas
                 </a>

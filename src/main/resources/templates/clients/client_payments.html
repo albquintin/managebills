@@ -14,7 +14,29 @@
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-  <h1 class="title" th:text="'Lista de pagos del cliente ' + ${client}"></h1>
+  <div class="columns">
+    <div class="column is-three-quarters">
+      <h1 class="title" th:text="'Lista de pagos del cliente ' + ${client} + ' en el año ' + ${year}"></h1>
+    </div>
+    <div class="column">
+      <form th:action="@{/client_payments/searchPaymentsByYear/{clientId}(clientId=${clientId})}">
+        <div class="field has-addons has-addons-right">
+          <div class="control is-expanded">
+            <label class="label">Elige año de facturación</label>
+            <div class="select is-fullwidth">
+              <select name="year" id="year">
+                <option th:value="2024" th:text="2024" th:selected="${year} == 2024?true:false"></option>
+                <option th:value="2023" th:text="2023" th:selected="${year} == 2023?true:false"></option>
+              </select>
+            </div>
+          </div>
+          <div class="control" style="display: none">
+            <button type="submit" class="button green-soil" id="changeYear">Elegir</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
   <table class="table is-bordered is-striped is-fullwidth" id="paymentsTable">
     <thead>
     <tr>
@@ -46,6 +68,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bulma.min.js"></script>
-<script th:src="@{/js/payments.js}"></script>
+<script th:src="@{/js/client_payments.js}"></script>
 </body>
 </html>

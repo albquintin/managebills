@@ -6,16 +6,16 @@ import com.spring.redduck.managebills.dto.ClientDto;
 import com.spring.redduck.managebills.dto.SupplierDto;
 import com.spring.redduck.managebills.service.PaymentService;
 import com.spring.redduck.managebills.service.ClientService;
+import com.spring.redduck.managebills.utils.Utils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PaymentController {
@@ -32,6 +32,8 @@ public class PaymentController {
         model.addAttribute("payments", payments);
         return "/payments/payments";
     }
+
+
     @GetMapping("/payments/payments/newpayment")
     public String newPaymentForm(Model model){
         PaymentDto paymentDto = new PaymentDto();
@@ -82,10 +84,12 @@ public class PaymentController {
     }
     @GetMapping("/clients/client_payments/{clientId}")
     public String clientPayments(@PathVariable("clientId") Long clientId, Model model){
-        List<PaymentDto> payments = paymentService.findPaymentsByClient(clientId);
+        List<PaymentDto> payments = paymentService.findPaymentsByClientOfCurrentYear(clientId);
         model.addAttribute("payments", payments);
         ClientDto client = clientService.findClientById(clientId);
         model.addAttribute("client", client.getName());
+        model.addAttribute("clientId", clientId);
+        model.addAttribute("year", "2024");
         return "clients/client_payments";
     }
     @GetMapping("/payments/oldpayments")
@@ -93,5 +97,33 @@ public class PaymentController {
         List<PaymentDto> payments = paymentService.findOldPayments();
         model.addAttribute("payments", payments);
         return "/payments/old_payments";
+    }
+
+    @GetMapping("/client_payments/searchPaymentsByYear/{clientId}")
+    public String searchPaymentsByClientAndYear(@RequestParam(value = "year") String year, @PathVariable("clientId") Long clientId, Model model){
+        List<PaymentDto> payments = paymentService.findPaymentsByClientByYear(clientId, Long.parseLong(year));
+        model.addAttribute("payments", payments);
+        ClientDto client = clientService.findClientById(clientId);
+        model.addAttribute("client", client.getName());
+        model.addAttribute("year", year);
+        return "clients/client_payments";
+    }
+
+    @GetMapping("/payments/printpayments")
+    public String printPayments(Model model){
+        List<PaymentDto> payments = new ArrayList<PaymentDto>();
+        model.addAttribute("payments", payments);
+        model.addAttribute("searchDone", false);
+        return("/payments/print_payments");
+    }
+
+    @GetMapping("/payments/search")
+    public String searchPaymentsByMonth(@RequestParam(value = "month") String month, Model model){
+        List<PaymentDto> payments = paymentService.findPaymentsByMonth(Long.parseLong(month));
+        model.addAttribute("payments", payments);
+        String monthInLetters = Utils.returnMonth(month);
+        model.addAttribute("monthInLetters", monthInLetters);
+        model.addAttribute("searchDone", true);
+        return("/payments/print_payments");
     }
 }
