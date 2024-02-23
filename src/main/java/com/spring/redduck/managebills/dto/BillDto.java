@@ -1,5 +1,6 @@
 package com.spring.redduck.managebills.dto;
 
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -14,11 +15,14 @@ import java.time.LocalDate;
 public class BillDto {
 
     private Long id;
+    @NotNull(message = "El campo Número de orden no puede estar vacío")
     private Long orderNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull(message = "El campo Fecha de la factura no puede estar vacío")
     private LocalDate billDate;
     private Long supplierId;
     private String supplierName;
+    @NotEmpty(message = "El número de la factura no puede estar vacío")
     private String billNumber;
     @NotNull(message = "El campo Total Factura no puede estar vacío")
     private BigDecimal totalPrice;

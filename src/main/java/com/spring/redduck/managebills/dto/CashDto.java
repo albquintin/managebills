@@ -17,7 +17,7 @@ import java.time.LocalDate;
 public class CashDto {
     private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @NotNull(message = "El campo Fecha del pago no puede estar vacío")
+    @NotNull(message = "El campo Fecha del cobro no puede estar vacío")
     private LocalDate paymentDate;
     @NotNull(message = "El campo Base IVA 10% no puede estar vacío")
     private BigDecimal iva10base;
