@@ -10,6 +10,7 @@ public class PaymentMapper {
                 .id(payment.getId())
                 .clientId(payment.getClient().getId())
                 .clientName(payment.getClient().getName())
+                .clientCif(payment.getClient().getDni())
                 .paymentType(payment.getPaymentType())
                 .paymentDate(payment.getPaymentDate())
                 .totalPrice(payment.getTotalPrice())

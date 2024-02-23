@@ -1,10 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Facturas</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-$END$
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+    <h1 class="title" style="padding-left:25%;" th:text="'Pagos del mes de ' + ${monthInLetters==null?'...':monthInLetters} "></h1>
+</div>
+<div th:style="${searchDone ? 'display:none' : 'display:block'}">
+    <form th:action="@{/payments/search}" >
+        <div class="control">
+            <div class="select">
+                <select name="month" aria-label="choose a month">
+                    <option th:value="1" th:text="Enero"></option>
+                    <option th:value="2" th:text="Febrero"></option>
+                    <option th:value="3" th:text="Marzo"></option>
+                    <option th:value="4" th:text="Abril"></option>
+                    <option th:value="5" th:text="Mayo"></option>
+                    <option th:value="6" th:text="Junio"></option>
+                    <option th:value="7" th:text="Julio"></option>
+                    <option th:value="8" th:text="Agosto"></option>
+                    <option th:value="9" th:text="Septiembre"></option>
+                    <option th:value="10" th:text="Octubre"></option>
+                    <option th:value="11" th:text="Noviembre"></option>
+                    <option th:value="12" th:text="Diciembre"></option>
+                </select>
+            </div>
+            <div class="control">
+                <button class="button green-soil" type="submit">Elegir</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br/>
+<table class="table is-bordered is-striped is-fullwidth" id="paymentsForMonthTable">
+    <thead>
+    <tr>
+        <th>Día</th>
+        <th>Cliente</th>
+        <th>Cif/Dni</th>
+        <th>Tipo pago</th>
+        <th>Total pago</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr th:each = "payment : ${payments}">
+            <td th:text="${#temporals.day(payment.paymentDate)}"></td>
+            <td th:text="${payment.clientName}"></td>
+            <td th:text="${payment.clientCif}"></td>
+            <td th:text="${payment.paymentType}"></td>
+            <td th:text="${payment.totalPrice}"></td>
+        </tr>
+    </tbody>
+</table>
+<br/><br/>
 </body>
 </html>

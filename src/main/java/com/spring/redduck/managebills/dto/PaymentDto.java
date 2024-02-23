@@ -20,6 +20,7 @@ public class PaymentDto {
     private LocalDate paymentDate;
     private Long clientId;
     private String clientName;
+    private String clientCif;
     @NotNull(message = "El campo Total Pago no puede estar vacío")
     private BigDecimal totalPrice;
     private String paymentType;
