@@ -17,6 +17,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findPaymentsOfCurrentYear();
     @Query("SELECT p FROM Payment p WHERE YEAR(p.paymentDate) < YEAR(CURDATE())")
     List<Payment> findOldPayments();
-    @Query("SELECT p FROM Payment p WHERE MONTH(p.paymentDate) = :month AND YEAR(p.paymentDate) = YEAR(CURDATE()) ORDER BY p.paymentDate")
-    List<Payment> findPaymentsByMonth(Long month);
+    @Query("SELECT p FROM Payment p WHERE MONTH(p.paymentDate) = :month AND YEAR(p.paymentDate) = :year ORDER BY p.paymentDate")
+    List<Payment> findPaymentsByMonth(Long month, Long year);
 }

@@ -55,8 +55,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public List<BillDto> findBillsByMonth(Long month) {
-        List<Bill> bills = billRepository.findBillsByMonth(month);
+    public List<BillDto> findBillsByMonth(Long month, Long year) {
+        List<Bill> bills = billRepository.findBillsByMonth(month, year);
         return bills.stream().map((bill) -> BillMapper.mapToBillDto(bill)).collect(Collectors.toList());
     }
 

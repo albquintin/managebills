@@ -42,7 +42,7 @@ public class CashController {
             model.addAttribute("cash", cashDto);
             return "/cash/create_cash";
         }
-        Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR));
+        Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
         if(optionalCodiasaCash.isPresent()){
             Boolean codiasaCashPresent = true;
             model.addAttribute("codiasaCashPresent", codiasaCashPresent);
@@ -84,6 +84,14 @@ public class CashController {
             model.addAttribute("cash", cashDto);
             return "cash/edit_cash";
         }
+        Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
+        if(optionalCodiasaCash.isPresent()){
+            Boolean codiasaCashPresent = true;
+            model.addAttribute("codiasaCashPresent", codiasaCashPresent);
+            cashDto.setId(cashId);
+            model.addAttribute("cash", cashDto);
+            return "/cash/edit_cash";
+        }
         BigDecimal totalIvaAmount = cashDto.getIva21amount().add(cashDto.getIva10amount()).setScale(2, RoundingMode.HALF_EVEN);
         BigDecimal totalPriceCalculated = totalIvaAmount.add(cashDto.getIva21base()).add(cashDto.getIva10base()).setScale(2, RoundingMode.HALF_EVEN);
         BigDecimal totalPrice = cashDto.getTotalPrice();
@@ -111,11 +119,11 @@ public class CashController {
         return "/cash/print_cash";
     }
     @GetMapping("/cash/search")
-    public String searchCashByMonth(@RequestParam(value = "month") String month, Model model){
-        List<CashDto> cashList = cashService.findCashByMonth(Long.parseLong(month));
+    public String searchCashByMonth(@RequestParam(value = "month") String month, @RequestParam(value = "year") String year, Model model){
+        List<CashDto> cashList = cashService.findCashByMonth(Long.parseLong(month), Long.parseLong(year));
         model.addAttribute("cashList", cashList);
         CashDto codiasaCash = new CashDto();
-        Optional<CashDto> codiasaCashOptional = cashService.findCodiasaCashByMonth(Long.parseLong(month));
+        Optional<CashDto> codiasaCashOptional = cashService.findCodiasaCashByMonth(Long.parseLong(month), Long.parseLong(year));
         if(codiasaCashOptional.isEmpty()){
             codiasaCash.setId(0L);
             codiasaCash.setIva10base(new BigDecimal(0));
@@ -135,10 +143,16 @@ public class CashController {
         return "/cash/print_cash";
     }
     @GetMapping("/cash/oldcash")
-    public String oldPayments(Model model){
+    public String oldCash(Model model){
         List<CashDto> cashList = cashService.findOldCash();
         model.addAttribute("cashList", cashList);
         return "/cash/old_cash";
+    }
+    @GetMapping("/cash/graphiccash")
+    public String graphicCash(Model model){
+        List<CashDto> cashList = cashService.findAllCash();
+        model.addAttribute("cashList", cashList);
+        return "/cash/graphic_cash";
     }
     public CashDto returnSumsOfTheMonth(List<CashDto> cashList, CashDto codiasaCash){
         CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));

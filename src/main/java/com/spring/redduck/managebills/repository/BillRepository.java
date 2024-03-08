@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
-    @Query("SELECT b FROM Bill b WHERE MONTH(b.billDate) = :month AND YEAR(b.billDate) = YEAR(CURDATE()) ORDER BY b.billDate")
-    List<Bill> findBillsByMonth(Long month);
+    @Query("SELECT b FROM Bill b WHERE MONTH(b.billDate) = :month AND YEAR(b.billDate) = :year ORDER BY b.billDate")
+    List<Bill> findBillsByMonth(Long month, Long year);
     @Query("SELECT b FROM Bill b WHERE b.orderNumber = :orderNumber")
     Bill findBillByOrderNumber(Long orderNumber);
     @Query("SELECT b FROM Bill b WHERE b.billNumber = :billNumber")

@@ -34,6 +34,9 @@
                         th:field="*{paymentDate}"
                 >
                 <p th:if="${#fields.hasErrors('paymentDate')}" class="help is-danger" th:errors="*{paymentDate}"></p>
+                <p th:if="${codiasaCashPresent} == true" class="help is-danger">
+                  Ya hay un elemento de Codiasa en el mes elegido
+                </p>
               </div>
             </div>
           </div>

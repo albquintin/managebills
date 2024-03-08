@@ -84,8 +84,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public List<PaymentDto> findPaymentsByMonth(Long month) {
-        List<Payment> payments = paymentRepository.findPaymentsByMonth(month);
+    public List<PaymentDto> findPaymentsByMonth(Long month, Long year) {
+        List<Payment> payments = paymentRepository.findPaymentsByMonth(month, year);
         return payments.stream().map((payment) -> PaymentMapper.mapToPaymentDto(payment)).collect(Collectors.toList());
     }
 }

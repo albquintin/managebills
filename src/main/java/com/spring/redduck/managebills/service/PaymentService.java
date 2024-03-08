@@ -15,5 +15,5 @@ public interface PaymentService {
     List<PaymentDto> findPaymentsByClientByYear(Long clientId, Long year);
     List<PaymentDto> findPaymentsOfCurrentYear();
     List<PaymentDto> findOldPayments();
-    List<PaymentDto> findPaymentsByMonth(Long month);
+    List<PaymentDto> findPaymentsByMonth(Long month, Long year);
 }

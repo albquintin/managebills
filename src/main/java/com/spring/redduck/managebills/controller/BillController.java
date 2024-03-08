@@ -180,8 +180,8 @@ public class BillController {
         return "/bills/print_bills";
     }
     @GetMapping("/bills/search")
-    public String searchBillsByMonth(@RequestParam(value = "month") String month, Model model){
-        List<BillDto> bills = billService.findBillsByMonth(Long.parseLong(month));
+    public String searchBillsByMonth(@RequestParam(value = "month") String month, @RequestParam(value = "year") String year, Model model){
+        List<BillDto> bills = billService.findBillsByMonth(Long.parseLong(month), Long.parseLong(year));
         model.addAttribute("bills", bills);
         String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);

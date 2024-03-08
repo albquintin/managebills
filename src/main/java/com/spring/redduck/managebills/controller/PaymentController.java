@@ -118,8 +118,8 @@ public class PaymentController {
     }
 
     @GetMapping("/payments/search")
-    public String searchPaymentsByMonth(@RequestParam(value = "month") String month, Model model){
-        List<PaymentDto> payments = paymentService.findPaymentsByMonth(Long.parseLong(month));
+    public String searchPaymentsByMonth(@RequestParam(value = "month") String month, @RequestParam(value = "year") String year, Model model){
+        List<PaymentDto> payments = paymentService.findPaymentsByMonth(Long.parseLong(month), Long.parseLong(year));
         model.addAttribute("payments", payments);
         String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);
