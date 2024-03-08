@@ -11,8 +11,9 @@ public interface CashService {
     CashDto findCashById(Long cashId);
     void deleteCash(Long cashId);
     void updateCash(CashDto cashDto);
-    List<CashDto> findCashByMonth(Long month);
-    Optional<CashDto> findCodiasaCashByMonth(Long month);
+    List<CashDto> findCashByMonth(Long month, Long year);
+    Optional<CashDto> findCodiasaCashByMonth(Long month, Long year);
     List<CashDto> findCashOfCurrentYear();
     List<CashDto> findOldCash();
+    List<CashDto> findGraphicData();
 }

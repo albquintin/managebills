@@ -49,14 +49,14 @@ public class CashServiceImpl implements CashService {
     }
 
     @Override
-    public List<CashDto> findCashByMonth(Long month) {
-        List<Cash> cashList = cashRepository.findCashByMonth(month);
+    public List<CashDto> findCashByMonth(Long month, Long year) {
+        List<Cash> cashList = cashRepository.findCashByMonth(month, year);
         return cashList.stream().map((cash) -> CashMapper.mapToCashDto(cash)).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<CashDto> findCodiasaCashByMonth(Long month) {
-        Cash cash = cashRepository.findCodiasaCashByMonth(month);
+    public Optional<CashDto> findCodiasaCashByMonth(Long month, Long year) {
+        Cash cash = cashRepository.findCodiasaCashByMonth(month, year);
         if(cash == null)
             return Optional.empty();
         else
@@ -72,6 +72,12 @@ public class CashServiceImpl implements CashService {
     @Override
     public List<CashDto> findOldCash() {
         List<Cash> cashList = cashRepository.findOldCash();
+        return cashList.stream().map((cash) -> CashMapper.mapToCashDto(cash)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CashDto> findGraphicData() {
+        List<Cash> cashList = cashRepository.findGraphicData();
         return cashList.stream().map((cash) -> CashMapper.mapToCashDto(cash)).collect(Collectors.toList());
     }
 }
