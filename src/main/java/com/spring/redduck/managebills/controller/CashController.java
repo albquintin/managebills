@@ -32,6 +32,7 @@ public class CashController {
     @GetMapping("/cash/cash/newcash")
     public String newCashForm(Model model){
         CashDto cashDto = new CashDto();
+        cashDto.setCodiasa(false);
         model.addAttribute("cash", cashDto);
         return "/cash/create_cash";
     }
@@ -42,24 +43,27 @@ public class CashController {
             model.addAttribute("cash", cashDto);
             return "/cash/create_cash";
         }
-        Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
-        if(optionalCodiasaCash.isPresent()){
-            Boolean codiasaCashPresent = true;
-            model.addAttribute("codiasaCashPresent", codiasaCashPresent);
-            model.addAttribute("cash", cashDto);
-            return "/cash/create_cash";
-        }
-        BigDecimal totalIvaAmount = cashDto.getIva21amount().add(cashDto.getIva10amount()).setScale(2, RoundingMode.HALF_EVEN);
-        BigDecimal totalPriceCalculated = totalIvaAmount.add(cashDto.getIva21base()).add(cashDto.getIva10base()).setScale(2, RoundingMode.HALF_EVEN);
-        BigDecimal totalPrice = cashDto.getTotalPrice();
-        if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
-                totalPrice.compareTo(totalPriceCalculated.add(BigDecimal.valueOf(0.01))) != 0 &&
-                totalPrice.compareTo(totalPriceCalculated.subtract(BigDecimal.valueOf(0.01))) != 0){
-
-            Boolean priceNotMatch = true;
-            model.addAttribute("priceNotMatch", priceNotMatch);
-            model.addAttribute("cash", cashDto);
-            return "/cash/create_cash";
+        if(cashDto.getCodiasa()){
+            cashDto.setIva10base(BigDecimal.valueOf(0));
+            cashDto.setIva10amount(BigDecimal.valueOf(0));
+            Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
+            if(optionalCodiasaCash.isPresent()){
+                Boolean codiasaCashPresent = true;
+                model.addAttribute("codiasaCashPresent", codiasaCashPresent);
+                model.addAttribute("cash", cashDto);
+                return "/cash/create_cash";
+            }
+            BigDecimal iva21Amount = cashDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totalPrice = cashDto.getIva21base().add(iva21Amount);
+            cashDto.setIva21amount(iva21Amount);
+            cashDto.setTotalPrice(totalPrice);
+        }else{
+            cashDto.setIva21base(BigDecimal.valueOf(0));
+            cashDto.setIva21amount(BigDecimal.valueOf(0));
+            BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totalPrice = cashDto.getIva10base().add(iva10Amount);
+            cashDto.setIva10amount(iva10Amount);
+            cashDto.setTotalPrice(totalPrice);
         }
         cashService.createCash(cashDto);
         return "redirect:/cash/cash";
@@ -84,26 +88,28 @@ public class CashController {
             model.addAttribute("cash", cashDto);
             return "cash/edit_cash";
         }
-        Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
-        if(optionalCodiasaCash.isPresent()){
-            Boolean codiasaCashPresent = true;
-            model.addAttribute("codiasaCashPresent", codiasaCashPresent);
-            cashDto.setId(cashId);
-            model.addAttribute("cash", cashDto);
-            return "/cash/edit_cash";
-        }
-        BigDecimal totalIvaAmount = cashDto.getIva21amount().add(cashDto.getIva10amount()).setScale(2, RoundingMode.HALF_EVEN);
-        BigDecimal totalPriceCalculated = totalIvaAmount.add(cashDto.getIva21base()).add(cashDto.getIva10base()).setScale(2, RoundingMode.HALF_EVEN);
-        BigDecimal totalPrice = cashDto.getTotalPrice();
-        if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
-                totalPrice.compareTo(totalPriceCalculated.add(BigDecimal.valueOf(0.01))) != 0 &&
-                totalPrice.compareTo(totalPriceCalculated.subtract(BigDecimal.valueOf(0.01))) != 0){
-
-            Boolean priceNotMatch = true;
-            model.addAttribute("priceNotMatch", priceNotMatch);
-            cashDto.setId(cashId);
-            model.addAttribute("cash", cashDto);
-            return "/cash/edit_cash";
+        if(cashDto.getCodiasa()){
+            cashDto.setIva10base(BigDecimal.valueOf(0));
+            cashDto.setIva10amount(BigDecimal.valueOf(0));
+            Optional<CashDto> optionalCodiasaCash = cashService.findCodiasaCashByMonth(cashDto.getPaymentDate().getLong(ChronoField.MONTH_OF_YEAR), cashDto.getPaymentDate().getLong(ChronoField.YEAR));
+            if(optionalCodiasaCash.isPresent() && optionalCodiasaCash.get().getId() != cashId){
+                Boolean codiasaCashPresent = true;
+                model.addAttribute("codiasaCashPresent", codiasaCashPresent);
+                cashDto.setId(cashId);
+                model.addAttribute("cash", cashDto);
+                return "/cash/edit_cash";
+            }
+            BigDecimal iva21Amount = cashDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totalPrice = cashDto.getIva21base().add(iva21Amount);
+            cashDto.setIva21amount(iva21Amount);
+            cashDto.setTotalPrice(totalPrice);
+        }else{
+            cashDto.setIva21base(BigDecimal.valueOf(0));
+            cashDto.setIva21amount(BigDecimal.valueOf(0));
+            BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totalPrice = cashDto.getIva10base().add(iva10Amount);
+            cashDto.setIva10amount(iva10Amount);
+            cashDto.setTotalPrice(totalPrice);
         }
         cashDto.setId(cashId);
         cashService.updateCash(cashDto);
@@ -155,7 +161,7 @@ public class CashController {
         return "/cash/graphic_cash";
     }
     public CashDto returnSumsOfTheMonth(List<CashDto> cashList, CashDto codiasaCash){
-        CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
+        CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), false);
         for(CashDto cash: cashList){
             cashSum.setTotalPrice(cashSum.getTotalPrice().add(cash.getTotalPrice()));
             cashSum.setIva21base(cashSum.getIva21base().add(cash.getIva21base()));

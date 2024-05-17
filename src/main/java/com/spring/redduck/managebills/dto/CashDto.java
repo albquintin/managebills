@@ -21,12 +21,10 @@ public class CashDto {
     private LocalDate paymentDate;
     @NotNull(message = "El campo Base IVA 10% no puede estar vacío")
     private BigDecimal iva10base;
-    @NotNull(message = "El campo Importe IVA 10% no puede estar vacío")
     private BigDecimal iva10amount;
     @NotNull(message = "El campo Base IVA 21% no puede estar vacío")
     private BigDecimal iva21base;
-    @NotNull(message = "El campo Importe IVA 21% no puede estar vacío")
     private BigDecimal iva21amount;
-    @NotNull(message = "El campo Bruto no puede estar vacío")
     private BigDecimal totalPrice;
+    private Boolean codiasa;
 }

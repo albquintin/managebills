@@ -27,6 +27,8 @@ public class Cash {
     private BigDecimal iva21base;
     @Column(name = "iva_21_amount")
     private BigDecimal iva21amount;
-    @Column(name = "total_price", nullable = false)
+    @Column(name = "total_price")
     private BigDecimal totalPrice;
+    @Column(name = "codiasa")
+    private Boolean codiasa;
 }

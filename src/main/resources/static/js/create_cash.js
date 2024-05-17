@@ -7,21 +7,21 @@ $(document).ready(function(){
         activeElement.value = '';
     }
   });
+ $("#codiasa").change(function() {
+     if(this.checked) {
+        $('#base10IvaColumn').css("display", "none");
+        $('#base21IvaColumn').css("display", "");
+     }else{
+        $('#base10IvaColumn').css("display", "");
+        $('#base21IvaColumn').css("display", "none");
+     }
+ });
 });
 function setValuesToZero(){
-    if(document.getElementById("totalPrice").value == ''){
-        document.getElementById("totalPrice").value = "0";
-    }
     if(document.getElementById("iva21base").value == ''){
         document.getElementById("iva21base").value = "0";
     }
-    if(document.getElementById("iva21amount").value == ''){
-        document.getElementById("iva21amount").value = "0";
-    }
     if(document.getElementById("iva10base").value == ''){
         document.getElementById("iva10base").value = "0";
-    }
-    if(document.getElementById("iva10amount").value == ''){
-        document.getElementById("iva10amount").value = "0";
     }
 }

@@ -21,6 +21,19 @@
     </header>
     <div class="card-content light-grey">
       <form role="form" method="post" th:action="@{/cash/cash/{cashId}(cashId=${cash.id})}" th:object="${cash}">
+        <div class="field">
+          <div class="control">
+            <label class="checkbox">
+              <input
+                      type="checkbox"
+                      id="codiasa"
+                      name="codiasa"
+                      th:field="*{codiasa}"
+              >
+              CODIASA
+            </label>
+          </div>
+        </div>
         <div class="columns">
           <div class="column">
             <div class="field">
@@ -40,7 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="column">
+          <div class="column" id="base10IvaColumn" th:style="${cash.getCodiasa() ? 'display: none' : 'display: block'}">
             <div class="field">
               <label class="label">Base 10% IVA</label>
               <div class="control">
@@ -56,23 +69,7 @@
               </div>
             </div>
           </div>
-          <div class="column">
-            <div class="field">
-              <label class="label">Importe 10% IVA</label>
-              <div class="control">
-                <input
-                        class="input"
-                        type="number"
-                        step=".01"
-                        id="iva10amount"
-                        name="iva10amount"
-                        th:field="*{iva10amount}"
-                >
-                <p th:if="${#fields.hasErrors('iva10amount')}" class="help is-danger" th:errors="*{iva10amount}"></p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
+          <div class="column" id="base21IvaColumn" th:style="${!cash.getCodiasa() ? 'display: none' : 'display: block'}">
             <div class="field">
               <label class="label">Base 21% IVA</label>
               <div class="control">
@@ -88,41 +85,6 @@
               </div>
             </div>
           </div>
-          <div class="column">
-            <div class="field">
-              <label class="label">Importe 21% IVA</label>
-              <div class="control">
-                <input
-                        class="input"
-                        type="number"
-                        step=".01"
-                        id="iva21amount"
-                        name="iva21amount"
-                        th:field="*{iva21amount}"
-                >
-                <p th:if="${#fields.hasErrors('iva21amount')}" class="help is-danger" th:errors="*{iva21amount}"></p>
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="field">
-              <label class="label" for="totalPrice">Bruto</label>
-              <div class="control">
-                <input
-                        class="input"
-                        type="number"
-                        step=".01"
-                        id="totalPrice"
-                        name="totalPrice"
-                        th:field="*{totalPrice}"
-                >
-                <p th:if="${priceNotMatch} == true" class="help is-danger">
-                  El bruto no concuerda con la suma de los IVAs
-                </p>
-                <p th:if="${#fields.hasErrors('totalPrice')}" class="help is-danger" th:errors="*{totalPrice}"></p>
-              </div>
-            </div>
-          </div>
         </div>
         <div>
           <button type="submit" class="button green-soil">Editar</button>
@@ -135,5 +97,7 @@
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script th:src="@{/js/edit_cash.js}"></script>
 </body>
 </html>
