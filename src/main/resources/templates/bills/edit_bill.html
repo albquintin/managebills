@@ -35,6 +35,10 @@
                         name="orderNumber"
                         th:field="*{orderNumber}"
                 >
+                <p th:if="${#fields.hasErrors('orderNumber')}" class="help is-danger" th:errors="*{orderNumber}"></p>
+                <p th:if="${orderNumberRepeated} == true" class="help is-danger">
+                  El número de orden está repetido
+                </p>
               </div>
             </div>
           </div>
@@ -49,6 +53,7 @@
                         name="billDate"
                         th:field="*{billDate}"
                 >
+                <p th:if="${#fields.hasErrors('billDate')}" class="help is-danger" th:errors="*{billDate}"></p>
               </div>
             </div>
           </div>
@@ -79,6 +84,10 @@
                         name="billNumber"
                         th:field="*{billNumber}"
                 >
+                <p th:if="${#fields.hasErrors('billNumber')}" class="help is-danger" th:errors="*{billNumber}"></p>
+                <p th:if="${billNumberRepeated} == true" class="help is-danger">
+                  El número de la factura está repetido
+                </p>
               </div>
             </div>
           </div>
@@ -225,6 +234,10 @@
              class="button blue-machine">
             Volver
           </a>
+          <button th:if="${priceNotMatch} == true" type="submit" class="button red-blood" style="float:right;"
+                  th:formaction="@{/bills/forcedmodification/{billId}(billId=${bill.id})}">
+            Forzar modificación
+          </button>
         </div>
       </form>
     </div>

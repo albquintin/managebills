@@ -234,6 +234,10 @@
              class="button blue-machine">
             Volver
           </a>
+          <button th:if="${priceNotMatch} == true" type="submit" class="button red-blood" style="float:right;"
+                  th:formaction="@{/bills/forcedcreation}">
+            Forzar creado
+          </button>
         </div>
       </form>
     </div>

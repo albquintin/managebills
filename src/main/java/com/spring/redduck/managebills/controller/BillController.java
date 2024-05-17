@@ -77,16 +77,16 @@ public class BillController {
             return "/bills/create_bill";
         }
 
-        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_EVEN));
+        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_UP));
 
         BigDecimal totalIvaAmount = billDto.getIva21amount().add(billDto.getIva10amount()).add(billDto.getIva5amount())
-                        .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_EVEN);
+                        .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_UP);
         BigDecimal totalPriceCalculated = totalIvaAmount.add(billDto.getIva0()).add(billDto.getIva21base())
                         .add(billDto.getIva10base()).add(billDto.getIva5base())
-                        .add(billDto.getIva4base()).setScale(2, RoundingMode.HALF_EVEN);
+                        .add(billDto.getIva4base()).setScale(2, RoundingMode.HALF_UP);
         BigDecimal totalPrice = billDto.getTotalPrice();
 
         if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
@@ -102,6 +102,50 @@ public class BillController {
             model.addAttribute("suppliers", suppliers);
             return "/bills/create_bill";
         }
+        billDto.setTotalIva(totalIvaAmount);
+        billService.createBill(billDto);
+        return "redirect:/bills/bills";
+    }
+
+    @PostMapping("bills/forcedcreation")
+    public String forceCreateBill(@Valid @ModelAttribute("bill") BillDto billDto,
+                                  BindingResult result, Model model){
+
+        if(result.hasErrors()){
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "/bills/create_bill";
+        }
+
+        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumber(billDto.getOrderNumber());
+        if(billRepeatedByOrderNumber.isPresent()){
+            Boolean orderNumberRepeated = true;
+            model.addAttribute("orderNumberRepeated", orderNumberRepeated);
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "/bills/create_bill";
+        }
+
+        Optional<BillDto> billRepeatedByBillNumber = billService.findBillByBillNumber(billDto.getBillNumber());
+        if(billRepeatedByBillNumber.isPresent()){
+            Boolean billNumberRepeated = true;
+            model.addAttribute("billNumberRepeated", billNumberRepeated);
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "/bills/create_bill";
+        }
+
+        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_UP));
+
+        BigDecimal totalIvaAmount = billDto.getIva21amount().add(billDto.getIva10amount()).add(billDto.getIva5amount())
+                .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_UP);
+
         billDto.setTotalIva(totalIvaAmount);
         billService.createBill(billDto);
         return "redirect:/bills/bills";
@@ -140,17 +184,17 @@ public class BillController {
             model.addAttribute("suppliers", suppliers);
             return "bills/edit_bill";
         }
-        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_EVEN));
-        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_EVEN));
+        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_UP));
 
         BigDecimal totalIvaAmount = billDto.getIva21amount().add(billDto.getIva10amount()).add(billDto.getIva5amount())
-                .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_EVEN);
+                .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_UP);
 
         BigDecimal totalPriceCalculated = totalIvaAmount.add(billDto.getIva0())
                 .add(billDto.getIva21base()).add(billDto.getIva10base()).add(billDto.getIva5base())
-                .add(billDto.getIva4base()).setScale(2, RoundingMode.HALF_EVEN);
+                .add(billDto.getIva4base()).setScale(2, RoundingMode.HALF_UP);
         BigDecimal totalPrice = billDto.getTotalPrice();
 
         if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
@@ -166,6 +210,31 @@ public class BillController {
             model.addAttribute("suppliers", suppliers);
             return "/bills/edit_bill";
         }
+        billDto.setTotalIva(totalIvaAmount);
+        billDto.setId(billId);
+        billService.updateBill(billDto);
+        return "redirect:/bills/bills";
+    }
+
+    @PostMapping("bills/forcedmodification/{billId}")
+    public String forceUpdateBill(@PathVariable("billId") Long billId,
+                             @Valid @ModelAttribute("bill") BillDto billDto,
+                             BindingResult result, Model model){
+        if(result.hasErrors()){
+            billDto.setId(billId);
+            model.addAttribute("bill", billDto);
+            List<SupplierDto> suppliers = supplierService.findAllOrdered();
+            model.addAttribute("suppliers", suppliers);
+            return "bills/edit_bill";
+        }
+        billDto.setIva21amount(billDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva10amount(billDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva5amount(billDto.getIva5base().multiply(BigDecimal.valueOf(0.05)).setScale(2, RoundingMode.HALF_UP));
+        billDto.setIva4amount(billDto.getIva4base().multiply(BigDecimal.valueOf(0.04)).setScale(2, RoundingMode.HALF_UP));
+
+        BigDecimal totalIvaAmount = billDto.getIva21amount().add(billDto.getIva10amount()).add(billDto.getIva5amount())
+                .add(billDto.getIva4amount()).setScale(2, RoundingMode.HALF_UP);
+
         billDto.setTotalIva(totalIvaAmount);
         billDto.setId(billId);
         billService.updateBill(billDto);
