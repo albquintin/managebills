@@ -17,6 +17,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "bill_number")
+    private String billNumber;
     @Column(name = "payment_date")
     private LocalDate paymentDate;
     @ManyToOne

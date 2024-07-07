@@ -3,6 +3,7 @@ package com.spring.redduck.managebills.service;
 import com.spring.redduck.managebills.dto.PaymentDto;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PaymentService {
     List<PaymentDto> findAllPayments();
@@ -10,6 +11,7 @@ public interface PaymentService {
     PaymentDto findPaymentById(Long paymentId);
     void deletePayment(Long clientBillId);
     void updatePayment(PaymentDto paymentDto);
+    Optional<PaymentDto> findPaymentByBillNumber(String billNumber);
     List<PaymentDto> findPaymentsByClient(Long clientId);
     List<PaymentDto> findPaymentsByClientOfCurrentYear(Long clientId);
     List<PaymentDto> findPaymentsByClientByYear(Long clientId, Long year);

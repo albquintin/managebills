@@ -8,6 +8,7 @@ public class PaymentMapper {
     public static PaymentDto mapToPaymentDto(Payment payment){
         PaymentDto paymentDto = PaymentDto.builder()
                 .id(payment.getId())
+                .billNumber(payment.getBillNumber())
                 .clientId(payment.getClient().getId())
                 .clientName(payment.getClient().getName())
                 .clientCif(payment.getClient().getDni())
@@ -21,6 +22,7 @@ public class PaymentMapper {
     public static Payment mapToPayment(PaymentDto paymentDto, Client client){
         Payment payment = Payment.builder()
                 .id(paymentDto.getId())
+                .billNumber(paymentDto.getBillNumber())
                 .client(client)
                 .paymentType(paymentDto.getPaymentType())
                 .paymentDate(paymentDto.getPaymentDate())

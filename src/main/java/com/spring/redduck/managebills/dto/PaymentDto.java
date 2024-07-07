@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class PaymentDto {
     private Long id;
+    private String billNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;
     private Long clientId;
@@ -24,4 +25,8 @@ public class PaymentDto {
     @NotNull(message = "El campo Total Pago no puede estar vacío")
     private BigDecimal totalPrice;
     private String paymentType;
+
+    public PaymentDto(@NotNull(message = "El campo Total Pago no puede estar vacío") BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 }

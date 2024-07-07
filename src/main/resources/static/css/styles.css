@@ -28,6 +28,9 @@ html, body{
     background-color: #E3E6E6;
     height: 130%;
 }
+thead{
+    background-color: #b2bfc9!important;
+}
 .is-small{
     border-radius: 5px!important;
 }

@@ -24,6 +24,24 @@
         <div class="columns">
           <div class="column">
             <div class="field">
+              <label class="label" for="billNumber">Número de factura</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="text"
+                        placeholder="Inserte el número de la factura"
+                        id="billNumber"
+                        name="billNumber"
+                        th:field="*{billNumber}"
+                >
+                <p th:if="${billNumberRepeated} == true" class="help is-danger">
+                  El número de la factura está repetido
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
               <label class="label" for="paymentDate">Fecha del pago</label>
               <div class="control">
                 <input

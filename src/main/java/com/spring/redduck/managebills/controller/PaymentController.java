@@ -1,6 +1,5 @@
 package com.spring.redduck.managebills.controller;
 
-import com.spring.redduck.managebills.dto.BillDto;
 import com.spring.redduck.managebills.dto.PaymentDto;
 import com.spring.redduck.managebills.dto.ClientDto;
 import com.spring.redduck.managebills.dto.SupplierDto;
@@ -13,9 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class PaymentController {
@@ -51,6 +52,17 @@ public class PaymentController {
             model.addAttribute("clients", clients);
             return "/payments/create_payment";
         }
+
+        Optional<PaymentDto> paymentRepeatedByBillNumber = paymentService.findPaymentByBillNumber(paymentDto.getBillNumber());
+        if(paymentRepeatedByBillNumber.isPresent()){
+            Boolean billNumberRepeated = true;
+            model.addAttribute("billNumberRepeated", billNumberRepeated);
+            model.addAttribute("payment", paymentDto);
+            List<ClientDto> clients = clientService.findAllOrdered();
+            model.addAttribute("clients", clients);
+            return "/payments/create_payment";
+        }
+
         paymentService.createPayment(paymentDto);
         return "redirect:/payments/payments";
     }
@@ -78,6 +90,7 @@ public class PaymentController {
             model.addAttribute("clients", clients);
             return "payments/edit_payment";
         }
+
         paymentDto.setId(paymentId);
         paymentService.updatePayment(paymentDto);
         return "redirect:/payments/payments";
@@ -123,7 +136,15 @@ public class PaymentController {
         model.addAttribute("payments", payments);
         String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);
+        PaymentDto sumOfTheMonth = returnSumsOfMonth(payments);
+        model.addAttribute("sumOfTheMonth", sumOfTheMonth);
         model.addAttribute("searchDone", true);
         return("/payments/print_payments");
+    }
+
+    public PaymentDto returnSumsOfMonth(List<PaymentDto> payments){
+        PaymentDto paymentSum = new PaymentDto(BigDecimal.valueOf(0));
+        payments.stream().forEach((payment) -> paymentSum.setTotalPrice(paymentSum.getTotalPrice().add(payment.getTotalPrice())));
+        return paymentSum;
     }
 }

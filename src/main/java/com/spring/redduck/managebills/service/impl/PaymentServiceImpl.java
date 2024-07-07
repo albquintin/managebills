@@ -1,8 +1,11 @@
 package com.spring.redduck.managebills.service.impl;
 
+import com.spring.redduck.managebills.dto.BillDto;
 import com.spring.redduck.managebills.dto.PaymentDto;
+import com.spring.redduck.managebills.entity.Bill;
 import com.spring.redduck.managebills.entity.Client;
 import com.spring.redduck.managebills.entity.Payment;
+import com.spring.redduck.managebills.mapper.BillMapper;
 import com.spring.redduck.managebills.mapper.PaymentMapper;
 import com.spring.redduck.managebills.repository.PaymentRepository;
 import com.spring.redduck.managebills.repository.ClientRepository;
@@ -51,6 +54,15 @@ public class PaymentServiceImpl implements PaymentService {
         Optional<Client> client = clientRepository.findById(paymentDto.getClientId());
         Payment payment = PaymentMapper.mapToPayment(paymentDto, client.get());
         paymentRepository.save(payment);
+    }
+
+    @Override
+    public Optional<PaymentDto> findPaymentByBillNumber(String billNumber) {
+        Payment payment = paymentRepository.findPaymentByBillNumber(billNumber);
+        if(payment == null)
+            return Optional.empty();
+        else
+            return Optional.of(PaymentMapper.mapToPaymentDto(payment));
     }
 
     @Override
