@@ -51,6 +51,7 @@
 <table class="table is-bordered is-striped is-fullwidth" id="paymentsForMonthTable">
     <thead>
     <tr>
+        <th>Nº factura</th>
         <th>Día</th>
         <th>Cliente</th>
         <th>Cif/Dni</th>
@@ -60,11 +61,20 @@
     </thead>
     <tbody>
         <tr th:each = "payment : ${payments}">
+            <td th:text="${payment.billNumber}"></td>
             <td th:text="${#temporals.day(payment.paymentDate)}"></td>
             <td th:text="${payment.clientName}"></td>
             <td th:text="${payment.clientCif}"></td>
             <td th:text="${payment.paymentType}"></td>
             <td th:text="${payment.totalPrice}"></td>
+        </tr>
+        <tr th:if="${searchDone}">
+            <td>TOTAL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td th:text="${sumOfTheMonth.totalPrice}"></td>
         </tr>
     </tbody>
 </table>
