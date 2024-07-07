@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modelo 347 Clientes</title>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+<div th:replace="~{fragments/header :: navbar}"></div>
+<br/><br/>
+<div class="container">
+    <h1 class="title" style="padding-left:25%;" th:text="'Modelo 347 Clientes ' + ${year}"></h1>
+</div>
+<br/><br/>
+<div class="container">
+    <table class="table is-bordered is-striped is-fullwidth" id="clientsFor347Form">
+        <thead>
+        <tr>
+            <th>Clientes</th>
+            <th>1º Trimestre</th>
+            <th>2º Trimestre</th>
+            <th>3º Trimestre</th>
+            <th>4º Trimestre</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each = "client : ${clients}">
+            <td th:text="${client.name}"></td>
+            <td th:text="${client.firstQuarter}"></td>
+            <td th:text="${client.secondQuarter}"></td>
+            <td th:text="${client.thirdQuarter}"></td>
+            <td th:text="${client.fourthQuarter}"></td>
+            <td th:text="${client.accumulatedQuantity}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

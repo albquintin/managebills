@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Year;
 import java.util.List;
 
 @Controller
@@ -75,5 +76,13 @@ public class SupplierController {
         model.addAttribute("suppliers", suppliers);
         model.addAttribute("year", year);
         return "/suppliers/suppliers";
+    }
+
+    @GetMapping("/suppliers/supplier347form")
+    public String print347Form(Model model){
+        List<SupplierDto> suppliers = supplierService.findSuppliersFor347Form();
+        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("year", Year.now().getValue());
+        return "suppliers/supplier_347_form";
     }
 }

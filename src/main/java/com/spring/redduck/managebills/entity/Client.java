@@ -20,6 +20,14 @@ public class Client {
     private String dni;
     @Column(name = "accumulated_quantity")
     private Float accumulatedQuantity;
+    @Column(name = "first_quarter")
+    private Float firstQuarter;
+    @Column(name = "second_quarter")
+    private Float secondQuarter;
+    @Column(name = "third_quarter")
+    private Float thirdQuarter;
+    @Column(name = "fourth_quarter")
+    private Float fourthQuarter;
     @Column(name = "address")
     private String address;
     @Column(name = "zip_code")

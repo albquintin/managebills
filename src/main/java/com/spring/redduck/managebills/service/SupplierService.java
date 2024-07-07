@@ -13,4 +13,5 @@ public interface SupplierService {
     List<SupplierDto> findAllSuppliersWithAccumulatedQuantity();
     List<SupplierDto> findAllOrdered();
     List<SupplierDto> findQuantitiesByYear(Long year);
+    List<SupplierDto> findSuppliersFor347Form();
 }

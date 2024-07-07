@@ -15,5 +15,9 @@ public class SupplierDto {
     @NotEmpty(message = "El nombre del proveedor no puede estar vacío")
     private String name;
     private String cif;
+    private Float firstQuarter;
+    private Float secondQuarter;
+    private Float thirdQuarter;
+    private Float fourthQuarter;
     private Float accumulatedQuantity;
 }

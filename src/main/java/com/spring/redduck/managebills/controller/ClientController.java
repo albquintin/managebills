@@ -9,7 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Controller
 public class ClientController {
 
@@ -69,5 +73,13 @@ public class ClientController {
         model.addAttribute("clients", clients);
         model.addAttribute("year", year);
         return "/clients/clients";
+    }
+
+    @GetMapping("/clients/client347form")
+    public String print347Form(Model model){
+        List<ClientDto> clients = clientService.findClientsFor347Form();
+        model.addAttribute("clients", clients);
+        model.addAttribute("year", Year.now().getValue());
+        return "clients/client_347_form";
     }
 }

@@ -16,6 +16,10 @@ public class ClientDto {
     private String name;
     private String dni;
     private Float accumulatedQuantity;
+    private Float firstQuarter;
+    private Float secondQuarter;
+    private Float thirdQuarter;
+    private Float fourthQuarter;
     private String address;
     private String zipCode;
     private String city;

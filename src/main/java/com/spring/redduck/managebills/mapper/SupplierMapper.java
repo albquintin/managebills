@@ -9,6 +9,10 @@ public class SupplierMapper {
                 .id(supplier.getId())
                 .name(supplier.getName())
                 .cif(supplier.getCif())
+                .firstQuarter(supplier.getFirstQuarter())
+                .secondQuarter(supplier.getSecondQuarter())
+                .thirdQuarter(supplier.getThirdQuarter())
+                .fourthQuarter(supplier.getFourthQuarter())
                 .accumulatedQuantity(supplier.getAccumulatedQuantity())
                 .build();
         return supplierDto;
@@ -19,6 +23,10 @@ public class SupplierMapper {
                 .id(supplierDto.getId())
                 .name(supplierDto.getName())
                 .cif(supplierDto.getCif())
+                .firstQuarter(supplierDto.getFirstQuarter())
+                .secondQuarter(supplierDto.getSecondQuarter())
+                .thirdQuarter(supplierDto.getThirdQuarter())
+                .fourthQuarter(supplierDto.getFourthQuarter())
                 .accumulatedQuantity(supplierDto.getAccumulatedQuantity())
                 .build();
         return supplier;
