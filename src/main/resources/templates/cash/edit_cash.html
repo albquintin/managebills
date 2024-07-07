@@ -86,6 +86,65 @@
             </div>
           </div>
         </div>
+        <div class="columns">
+          <div class="column" id="cash_money">
+            <div class="field">
+              <label class="label">Pago en metálico</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="cashMoney"
+                        name="cashMoney"
+                        th:field="*{cashMoney}"
+                >
+                <p th:if="${#fields.hasErrors('cashMoney')}" class="help is-danger" th:errors="*{cashMoney}"></p>
+                <p th:if="${pricesNotMatch} == true" class="help is-danger">
+                  Las sumas de los pagos no concuerdan con el total
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column" id="credit_card">
+            <div class="field">
+              <label class="label">Pago con tarjeta</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="creditCard"
+                        name="creditCard"
+                        th:field="*{creditCard}"
+                >
+                <p th:if="${#fields.hasErrors('creditCard')}" class="help is-danger" th:errors="*{creditCard}"></p>
+                <p th:if="${pricesNotMatch} == true" class="help is-danger">
+                  Las sumas de los pagos no concuerdan con el total
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="column" id="credit_payment">
+            <div class="field">
+              <label class="label">Pago a crédito</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="creditPayment"
+                        name="creditPayment"
+                        th:field="*{creditPayment}"
+                >
+                <p th:if="${#fields.hasErrors('creditPayment')}" class="help is-danger" th:errors="*{creditPayment}"></p>
+                <p th:if="${pricesNotMatch} == true" class="help is-danger">
+                  Las sumas de los pagos no concuerdan con el total
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div>
           <button type="submit" class="button green-soil">Editar</button>
           <a th:href="@{/cash/cash}"

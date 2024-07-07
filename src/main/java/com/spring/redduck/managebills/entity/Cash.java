@@ -31,4 +31,10 @@ public class Cash {
     private BigDecimal totalPrice;
     @Column(name = "codiasa")
     private Boolean codiasa;
+    @Column(name = "cash_money")
+    private BigDecimal cashMoney;
+    @Column(name = "credit_card")
+    private BigDecimal creditCard;
+    @Column(name = "credit_payment")
+    private BigDecimal creditPayment;
 }

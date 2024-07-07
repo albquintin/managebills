@@ -55,6 +55,12 @@ public class CashController {
             }
             BigDecimal iva21Amount = cashDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP);
             BigDecimal totalPrice = cashDto.getIva21base().add(iva21Amount);
+            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).compareTo(totalPrice) != 0){
+                Boolean pricesNotMatch = true;
+                model.addAttribute("pricesNotMatch", pricesNotMatch);
+                model.addAttribute("cash", cashDto);
+                return "/cash/create_cash";
+            }
             cashDto.setIva21amount(iva21Amount);
             cashDto.setTotalPrice(totalPrice);
         }else{
@@ -62,6 +68,12 @@ public class CashController {
             cashDto.setIva21amount(BigDecimal.valueOf(0));
             BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
             BigDecimal totalPrice = cashDto.getIva10base().add(iva10Amount);
+            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).add(cashDto.getCreditPayment()).compareTo(totalPrice) != 0){
+                Boolean pricesNotMatch = true;
+                model.addAttribute("pricesNotMatch", pricesNotMatch);
+                model.addAttribute("cash", cashDto);
+                return "/cash/create_cash";
+            }
             cashDto.setIva10amount(iva10Amount);
             cashDto.setTotalPrice(totalPrice);
         }
@@ -101,6 +113,12 @@ public class CashController {
             }
             BigDecimal iva21Amount = cashDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP);
             BigDecimal totalPrice = cashDto.getIva21base().add(iva21Amount);
+            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).compareTo(totalPrice) != 0){
+                Boolean pricesNotMatch = true;
+                model.addAttribute("pricesNotMatch", pricesNotMatch);
+                model.addAttribute("cash", cashDto);
+                return "/cash/edit_cash";
+            }
             cashDto.setIva21amount(iva21Amount);
             cashDto.setTotalPrice(totalPrice);
         }else{
@@ -108,6 +126,12 @@ public class CashController {
             cashDto.setIva21amount(BigDecimal.valueOf(0));
             BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
             BigDecimal totalPrice = cashDto.getIva10base().add(iva10Amount);
+            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).add(cashDto.getCreditPayment()).compareTo(totalPrice) != 0){
+                Boolean pricesNotMatch = true;
+                model.addAttribute("pricesNotMatch", pricesNotMatch);
+                model.addAttribute("cash", cashDto);
+                return "/cash/edit_cash";
+            }
             cashDto.setIva10amount(iva10Amount);
             cashDto.setTotalPrice(totalPrice);
         }
@@ -137,6 +161,9 @@ public class CashController {
             codiasaCash.setIva21base(new BigDecimal(0));
             codiasaCash.setIva21amount(new BigDecimal(0));
             codiasaCash.setTotalPrice(new BigDecimal(0));
+            codiasaCash.setCashMoney(new BigDecimal(0));
+            codiasaCash.setCreditCard(new BigDecimal(0));
+            codiasaCash.setCreditPayment(new BigDecimal(0));
         }else if(codiasaCashOptional.isPresent()){
             codiasaCash = codiasaCashOptional.get();
         }
@@ -161,19 +188,26 @@ public class CashController {
         return "/cash/graphic_cash";
     }
     public CashDto returnSumsOfTheMonth(List<CashDto> cashList, CashDto codiasaCash){
-        CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), false);
+        CashDto cashSum = new CashDto(0L, null, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0), false, BigDecimal.valueOf(0), BigDecimal.valueOf(0), BigDecimal.valueOf(0));
         for(CashDto cash: cashList){
             cashSum.setTotalPrice(cashSum.getTotalPrice().add(cash.getTotalPrice()));
             cashSum.setIva21base(cashSum.getIva21base().add(cash.getIva21base()));
             cashSum.setIva21amount(cashSum.getIva21amount().add(cash.getIva21amount()));
             cashSum.setIva10base(cashSum.getIva10base().add(cash.getIva10base()));
             cashSum.setIva10amount(cashSum.getIva10amount().add(cash.getIva10amount()));
+            cashSum.setCashMoney(cashSum.getCashMoney().add(cash.getCashMoney()));
+            cashSum.setCreditCard(cashSum.getCreditCard().add(cash.getCreditCard()));
+            cashSum.setCreditPayment(cashSum.getCreditPayment().add(cash.getCreditPayment()));
         }
         cashSum.setTotalPrice(cashSum.getTotalPrice().add(codiasaCash.getTotalPrice()));
         cashSum.setIva21base(cashSum.getIva21base().add(codiasaCash.getIva21base()));
         cashSum.setIva21amount(cashSum.getIva21amount().add(codiasaCash.getIva21amount()));
         cashSum.setIva10base(cashSum.getIva10base().add(codiasaCash.getIva10base()));
         cashSum.setIva10amount(cashSum.getIva10amount().add(codiasaCash.getIva10amount()));
+        cashSum.setCashMoney(cashSum.getCashMoney().add(codiasaCash.getCashMoney()));
+        cashSum.setCreditCard(cashSum.getCreditCard().add(codiasaCash.getCreditCard()));
+        cashSum.setCreditPayment(cashSum.getCreditPayment().add(codiasaCash.getCreditPayment()));
+
         return cashSum;
     }
 }

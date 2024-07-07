@@ -10,6 +10,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,4 +28,10 @@ public class CashDto {
     private BigDecimal iva21amount;
     private BigDecimal totalPrice;
     private Boolean codiasa;
+    @NotNull(message = "El campo Pago en metálico no puede estar vacío")
+    private BigDecimal cashMoney;
+    @NotNull(message = "El campo Pago con tarjeta no puede estar vacío")
+    private BigDecimal creditCard;
+    @NotNull(message = "El campo Pago con tarjeta no puede estar vacío")
+    private BigDecimal creditPayment;
 }

@@ -58,4 +58,10 @@ public class SupplierServiceImpl implements SupplierService {
         List<Supplier> suppliers = supplierRepository.findQuantitiesByYear(year);
         return suppliers.stream().map((supplier) -> SupplierMapper.mapToSupplierDto(supplier)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<SupplierDto> findSuppliersFor347Form() {
+        List<Supplier> suppliers = supplierRepository.findSuppliersFor347Form();
+        return suppliers.stream().map((supplier) -> SupplierMapper.mapToSupplierDto(supplier)).collect(Collectors.toList());
+    }
 }

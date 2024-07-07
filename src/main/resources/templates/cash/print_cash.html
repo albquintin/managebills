@@ -57,6 +57,9 @@
     <th>Base IVA 21%</th>
     <th>Total IVA 21%</th>
     <th>Bruto</th>
+    <th>Efectivo</th>
+    <th>Tarjeta</th>
+    <th>Crédito</th>
   </tr>
   </thead>
   <tbody>
@@ -67,6 +70,9 @@
     <td>0</td>
     <td>0</td>
     <td th:text="${cash.totalPrice}"></td>
+    <td th:text="${cash.cashMoney}"></td>
+    <td th:text="${cash.creditCard}"></td>
+    <td th:text="${cash.creditPayment}"></td>
   </tr>
   <tr th:if="${searchDone}">
     <td>CODIASA</td>
@@ -75,6 +81,9 @@
     <td th:text="${codiasa.iva21base}"></td>
     <td th:text="${codiasa.iva21amount}"></td>
     <td th:text="${codiasa.totalPrice}"></td>
+    <td th:text="${codiasa.cashMoney}"></td>
+    <td th:text="${codiasa.creditCard}"></td>
+    <td th:text="${codiasa.creditPayment}"></td>
   </tr>
   <tr th:if="${searchDone}">
     <td>TOTAL</td>
@@ -83,6 +92,9 @@
     <td th:text="${sumOfTheMonth.iva21base}"></td>
     <td th:text="${sumOfTheMonth.iva21amount}"></td>
     <td th:text="${sumOfTheMonth.totalPrice}"></td>
+    <td th:text="${sumOfTheMonth.cashMoney}"></td>
+    <td th:text="${sumOfTheMonth.creditCard}"></td>
+    <td th:text="${sumOfTheMonth.creditPayment}"></td>
   </tr>
   </tbody>
 </table>

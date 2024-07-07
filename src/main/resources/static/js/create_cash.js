@@ -24,4 +24,13 @@ function setValuesToZero(){
     if(document.getElementById("iva10base").value == ''){
         document.getElementById("iva10base").value = "0";
     }
+    if(document.getElementById("cashMoney").value == ''){
+        document.getElementById("cashMoney").value = "0";
+    }
+    if(document.getElementById("creditCard").value == ''){
+        document.getElementById("creditCard").value = "0";
+    }
+    if(document.getElementById("creditPayment").value == ''){
+        document.getElementById("creditPayment").value = "0";
+    }
 }

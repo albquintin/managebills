@@ -14,6 +14,9 @@ public class CashMapper {
                 .iva21amount(cash.getIva21amount())
                 .totalPrice(cash.getTotalPrice())
                 .codiasa(cash.getCodiasa())
+                .cashMoney(cash.getCashMoney())
+                .creditCard(cash.getCreditCard())
+                .creditPayment(cash.getCreditPayment())
                 .build();
         return cashDto;
     }
@@ -28,6 +31,9 @@ public class CashMapper {
                 .iva21amount(cashDto.getIva21amount())
                 .totalPrice(cashDto.getTotalPrice())
                 .codiasa(cashDto.getCodiasa())
+                .cashMoney(cashDto.getCashMoney())
+                .creditCard(cashDto.getCreditCard())
+                .creditPayment(cashDto.getCreditPayment())
                 .build();
         return cash;
     }
