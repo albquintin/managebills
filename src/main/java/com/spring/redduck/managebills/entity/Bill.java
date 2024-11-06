@@ -40,6 +40,10 @@ public class Bill {
     private BigDecimal iva10base;
     @Column(name = "iva_10_amount")
     private BigDecimal iva10amount;
+    @Column(name = "iva_half7_base", nullable = false)
+    private BigDecimal ivaHalf7base;
+    @Column(name = "iva_half7_amount")
+    private BigDecimal ivaHalf7amount;
     @Column(name = "iva_5_base", nullable = false)
     private BigDecimal iva5base;
     @Column(name = "iva_5_amount")
@@ -48,6 +52,10 @@ public class Bill {
     private BigDecimal iva4base;
     @Column(name = "iva_4_amount")
     private BigDecimal iva4amount;
+    @Column(name = "iva_2_base", nullable = false)
+    private BigDecimal iva2base;
+    @Column(name = "iva_2_amount")
+    private BigDecimal iva2amount;
     @Column(name = "iva_0_base", nullable = false)
     private BigDecimal iva0;
     @Column(name = "total_iva")

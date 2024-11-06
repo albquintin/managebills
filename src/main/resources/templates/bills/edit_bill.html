@@ -163,6 +163,22 @@
           </div>
           <div class="column">
             <div class="field">
+              <label class="label" for="ivaHalf7base">IVA 7.5%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="ivaHalf7base"
+                        name="ivaHalf7base"
+                        th:field="*{ivaHalf7base}"
+                >
+                <p th:if="${#fields.hasErrors('ivaHalf7base')}" class="help is-danger" th:errors="*{ivaHalf7base}"></p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
               <label class="label" for="iva5base">IVA 5%</label>
               <div class="control">
                 <input
@@ -190,6 +206,22 @@
                         th:field="*{iva4base}"
                 >
                 <p th:if="${#fields.hasErrors('iva4base')}" class="help is-danger" th:errors="*{iva4base}"></p>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label" for="iva2base">IVA 2%</label>
+              <div class="control">
+                <input
+                        class="input"
+                        type="number"
+                        step=".01"
+                        id="iva2base"
+                        name="iva2base"
+                        th:field="*{iva2base}"
+                >
+                <p th:if="${#fields.hasErrors('iva2base')}" class="help is-danger" th:errors="*{iva2base}"></p>
               </div>
             </div>
           </div>

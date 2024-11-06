@@ -18,11 +18,17 @@ function setValuesToZero(){
     if(document.getElementById("iva10base").value == ''){
         document.getElementById("iva10base").value = "0";
     }
+    if(document.getElementById("ivaHalf7base").value == ''){
+        document.getElementById("ivaHalf7base").value = "0";
+    }
     if(document.getElementById("iva5base").value == ''){
         document.getElementById("iva5base").value = "0";
     }
     if(document.getElementById("iva4base").value == ''){
         document.getElementById("iva4base").value = "0";
+    }
+    if(document.getElementById("iva2base").value == ''){
+        document.getElementById("iva2base").value = "0";
     }
     if(document.getElementById("iva0").value == ''){
         document.getElementById("iva0").value = "0";

@@ -134,6 +134,9 @@ public class PaymentController {
     public String searchPaymentsByMonth(@RequestParam(value = "month") String month, @RequestParam(value = "year") String year, Model model){
         List<PaymentDto> payments = paymentService.findPaymentsByMonth(Long.parseLong(month), Long.parseLong(year));
         model.addAttribute("payments", payments);
+        int valueOfMonth =Integer.parseInt(month);
+        if(valueOfMonth<10)
+            month = "0"+month;
         String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);
         PaymentDto sumOfTheMonth = returnSumsOfMonth(payments);

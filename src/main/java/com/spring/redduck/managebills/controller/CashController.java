@@ -55,7 +55,11 @@ public class CashController {
             }
             BigDecimal iva21Amount = cashDto.getIva21base().multiply(BigDecimal.valueOf(0.21)).setScale(2, RoundingMode.HALF_UP);
             BigDecimal totalPrice = cashDto.getIva21base().add(iva21Amount);
-            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).compareTo(totalPrice) != 0){
+            BigDecimal totalPriceCalculated = cashDto.getCashMoney().add(cashDto.getCreditCard()).add(cashDto.getCreditPayment());
+
+            if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
+                    totalPrice.compareTo(totalPriceCalculated.add(BigDecimal.valueOf(0.01))) != 0 &&
+                    totalPrice.compareTo(totalPriceCalculated.subtract(BigDecimal.valueOf(0.01))) != 0){
                 Boolean pricesNotMatch = true;
                 model.addAttribute("pricesNotMatch", pricesNotMatch);
                 model.addAttribute("cash", cashDto);
@@ -66,9 +70,13 @@ public class CashController {
         }else{
             cashDto.setIva21base(BigDecimal.valueOf(0));
             cashDto.setIva21amount(BigDecimal.valueOf(0));
-            BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal iva10Amount = cashDto.getIva10base().multiply(BigDecimal.valueOf(0.10)).setScale(2, RoundingMode.HALF_DOWN);
             BigDecimal totalPrice = cashDto.getIva10base().add(iva10Amount);
-            if(cashDto.getCashMoney().add(cashDto.getCreditCard()).add(cashDto.getCreditPayment()).compareTo(totalPrice) != 0){
+            BigDecimal totalPriceCalculated = cashDto.getCashMoney().add(cashDto.getCreditCard()).add(cashDto.getCreditPayment());
+
+            if(totalPrice.compareTo(totalPriceCalculated) != 0 &&
+                    totalPrice.compareTo(totalPriceCalculated.add(BigDecimal.valueOf(0.01))) != 0 &&
+                    totalPrice.compareTo(totalPriceCalculated.subtract(BigDecimal.valueOf(0.01))) != 0){
                 Boolean pricesNotMatch = true;
                 model.addAttribute("pricesNotMatch", pricesNotMatch);
                 model.addAttribute("cash", cashDto);
