@@ -13,7 +13,7 @@ public interface BillService {
     void deleteBill(Long billId);
     void updateBill(BillDto billDto);
     List<BillDto> findBillsByMonth(Long month, Long year);
-    Optional<BillDto> findBillByOrderNumber(Long orderNumber);
+    Optional<BillDto> findBillByOrderNumberAndYear(Long orderNumber, Long year);
     Optional<BillDto> findBillByBillNumber(String billNumber);
     List<BillDto> findBillsBySupplierAndYear(Long supplierId, Long year);
     List<BillDto> findBillsOfCurrentYear();

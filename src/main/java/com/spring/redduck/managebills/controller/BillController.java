@@ -59,7 +59,7 @@ public class BillController {
             return "/bills/create_bill";
         }
 
-        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumber(billDto.getOrderNumber());
+        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumberAndYear(billDto.getOrderNumber(), Long.valueOf(billDto.getBillDate().getYear()));
         if(billRepeatedByOrderNumber.isPresent()){
             Boolean orderNumberRepeated = true;
             model.addAttribute("orderNumberRepeated", orderNumberRepeated);
@@ -125,7 +125,7 @@ public class BillController {
             return "/bills/create_bill";
         }
 
-        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumber(billDto.getOrderNumber());
+        Optional<BillDto> billRepeatedByOrderNumber = billService.findBillByOrderNumberAndYear(billDto.getOrderNumber(), Long.valueOf(billDto.getBillDate().getYear()));
         if(billRepeatedByOrderNumber.isPresent()){
             Boolean orderNumberRepeated = true;
             model.addAttribute("orderNumberRepeated", orderNumberRepeated);

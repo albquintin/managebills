@@ -61,8 +61,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Optional<BillDto> findBillByOrderNumber(Long orderNumber) {
-        Bill bill = billRepository.findBillByOrderNumber(orderNumber);
+    public Optional<BillDto> findBillByOrderNumberAndYear(Long orderNumber, Long year) {
+        Bill bill = billRepository.findBillByOrderNumberAndYear(orderNumber, year);
         if(bill == null)
             return Optional.empty();
         else
