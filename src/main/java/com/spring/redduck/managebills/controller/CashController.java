@@ -178,6 +178,10 @@ public class CashController {
         model.addAttribute("codiasa", codiasaCash);
         CashDto sumOfTheMonth = returnSumsOfTheMonth(cashList, codiasaCash);
         model.addAttribute("sumOfTheMonth", sumOfTheMonth);
+
+        int valueOfMonth =Integer.parseInt(month);
+        if(valueOfMonth<10)
+            month = "0"+month;
         String monthInLetters = Utils.returnMonth(month);
         model.addAttribute("monthInLetters", monthInLetters);
         model.addAttribute("searchDone", true);

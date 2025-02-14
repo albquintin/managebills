@@ -57,8 +57,8 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public Optional<PaymentDto> findPaymentByBillNumber(String billNumber) {
-        Payment payment = paymentRepository.findPaymentByBillNumber(billNumber);
+    public Optional<PaymentDto> findPaymentByBillNumberAndYear(String billNumber, Long year) {
+        Payment payment = paymentRepository.findPaymentByBillNumberAndYear(billNumber, year);
         if(payment == null)
             return Optional.empty();
         else

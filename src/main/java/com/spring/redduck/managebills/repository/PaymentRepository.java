@@ -13,8 +13,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     List<Payment> findPaymentsByClientOfCurrentYear(Long clientId);
     @Query("SELECT p FROM Payment p WHERE p.client.id = :clientId AND YEAR(p.paymentDate) = :year")
     List<Payment> findPaymentsByClientByYear(Long clientId, Long year);
-    @Query("SELECT p FROM Payment p WHERE p.billNumber = :billNumber")
-    Payment findPaymentByBillNumber(String billNumber);
+    @Query("SELECT p FROM Payment p WHERE p.billNumber = :billNumber AND YEAR(p.paymentDate) = :year")
+    Payment findPaymentByBillNumberAndYear(String billNumber, Long year);
     @Query("SELECT p FROM Payment p WHERE YEAR(p.paymentDate) = YEAR(CURDATE())")
     List<Payment> findPaymentsOfCurrentYear();
     @Query("SELECT p FROM Payment p WHERE YEAR(p.paymentDate) < YEAR(CURDATE())")

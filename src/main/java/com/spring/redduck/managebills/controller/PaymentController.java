@@ -53,7 +53,7 @@ public class PaymentController {
             return "/payments/create_payment";
         }
 
-        Optional<PaymentDto> paymentRepeatedByBillNumber = paymentService.findPaymentByBillNumber(paymentDto.getBillNumber());
+        Optional<PaymentDto> paymentRepeatedByBillNumber = paymentService.findPaymentByBillNumberAndYear(paymentDto.getBillNumber(), Long.valueOf(paymentDto.getPaymentDate().getYear()));
         if(paymentRepeatedByBillNumber.isPresent()){
             Boolean billNumberRepeated = true;
             model.addAttribute("billNumberRepeated", billNumberRepeated);
