@@ -25,7 +25,7 @@ public class ClientController {
     public String clients(Model model){
         List<ClientDto> clients = clientService.findAllClientsWithAccumulatedQuantity();
         model.addAttribute("clients", clients);
-        String year = "2024";
+        String year = "2025";
         model.addAttribute("year", year);
         return "/clients/clients";
     }
@@ -77,9 +77,18 @@ public class ClientController {
 
     @GetMapping("/clients/client347form")
     public String print347Form(Model model){
-        List<ClientDto> clients = clientService.findClientsFor347Form();
+        List<ClientDto> clients = new ArrayList<>();
         model.addAttribute("clients", clients);
-        model.addAttribute("year", Year.now().getValue());
+        model.addAttribute("searchDone", false);
+        return "clients/client_347_form";
+    }
+
+    @GetMapping("/clients/fillFormByYear")
+    public String fillFormByYear(@RequestParam(value = "year") String year, Model model){
+        List<ClientDto> clients = clientService.findClientsFor347Form(Long.parseLong(year));
+        model.addAttribute("clients", clients);
+        model.addAttribute("year", year);
+        model.addAttribute("searchDone", true);
         return "clients/client_347_form";
     }
 }

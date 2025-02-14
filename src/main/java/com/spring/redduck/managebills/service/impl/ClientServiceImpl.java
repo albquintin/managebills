@@ -59,8 +59,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<ClientDto> findClientsFor347Form() {
-        List<Client> clients = clientRepository.findClientsFor347Form();
+    public List<ClientDto> findClientsFor347Form(Long year) {
+        List<Client> clients = clientRepository.findClientsFor347Form(year);
         return clients.stream().map((client) -> ClientMapper.mapToClientDto(client)).collect(Collectors.toList());
     }
 }

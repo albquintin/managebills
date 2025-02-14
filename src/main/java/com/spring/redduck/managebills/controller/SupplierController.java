@@ -1,18 +1,14 @@
 package com.spring.redduck.managebills.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring.redduck.managebills.dto.BillDto;
 import com.spring.redduck.managebills.dto.SupplierDto;
 import com.spring.redduck.managebills.service.SupplierService;
-import com.spring.redduck.managebills.utils.Utils;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,7 +23,7 @@ public class SupplierController {
     public String suppliers(Model model){
         List<SupplierDto> suppliers = supplierService.findAllSuppliersWithAccumulatedQuantity();
         model.addAttribute("suppliers", suppliers);
-        String year = "2024";
+        String year = "2025";
         model.addAttribute("year", year);
         return "/suppliers/suppliers";
     }
@@ -80,9 +76,18 @@ public class SupplierController {
 
     @GetMapping("/suppliers/supplier347form")
     public String print347Form(Model model){
-        List<SupplierDto> suppliers = supplierService.findSuppliersFor347Form();
+        List<SupplierDto> suppliers = new ArrayList<>();
         model.addAttribute("suppliers", suppliers);
-        model.addAttribute("year", Year.now().getValue());
+        model.addAttribute("searchDone", false);
         return "suppliers/supplier_347_form";
+    }
+
+    @GetMapping("/suppliers/fillFormByYear")
+    public String fillFormByYear(@RequestParam(value = "year") String year, Model model){
+        List<SupplierDto> suppliers = supplierService.findSuppliersFor347Form(Long.parseLong(year));
+        model.addAttribute("suppliers", suppliers);
+        model.addAttribute("year", year);
+        model.addAttribute("searchDone", true);
+        return("/suppliers/supplier_347_form");
     }
 }

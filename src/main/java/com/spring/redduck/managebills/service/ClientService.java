@@ -12,5 +12,5 @@ public interface ClientService {
     List<ClientDto> findAllOrdered();
     List<ClientDto> findAllClientsWithAccumulatedQuantity();
     List<ClientDto> findQuantitiesByYear(Long year);
-    List<ClientDto> findClientsFor347Form();
+    List<ClientDto> findClientsFor347Form(Long year);
 }
