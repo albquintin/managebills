@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Facturas</title>
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
 <div th:replace="~{fragments/header :: navbar}"></div>
 <br/><br/>
 <div class="container">
-    <h1 class="title" style="padding-left:25%;" th:text="'Pagos del mes de ' + ${monthInLetters==null?'...':monthInLetters} "></h1>
+    <h1 class="title" style="padding-left:25%;" th:text="'Pagos del mes de ' + ${monthInLetters==null?'...':monthInLetters} " id="title"></h1>
 </div>
 <div th:style="${searchDone ? 'display:none' : 'display:block'}">
     <form th:action="@{/payments/search}" >
@@ -37,7 +38,8 @@
             <div class="select">
                 <select name="year" aria-label="choose a year">
                     <option th:value="2023" th:text="2023"></option>
-                    <option th:value="2024" th:text="2024" selected></option>
+                    <option th:value="2024" th:text="2024"></option>
+                    <option th:value="2025" th:text="2025" selected></option>
                 </select>
             </div>
             <div class="control">
@@ -48,6 +50,7 @@
 </div>
 
 <br/>
+<button class="button green-soil" th:style="${searchDone ? 'display:block' : 'display:none'}" onclick="generarPDF('#paymentsForMonthTable')">Guardar como PDF   <i style="font-size:24px" class="fa">&#xf1c1;</i></button>
 <table class="table is-bordered is-striped is-fullwidth" id="paymentsForMonthTable">
     <thead>
     <tr>
@@ -79,5 +82,8 @@
     </tbody>
 </table>
 <br/><br/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script th:src="@{/js/save_as_pdf.js}"></script>
 </body>
 </html>
